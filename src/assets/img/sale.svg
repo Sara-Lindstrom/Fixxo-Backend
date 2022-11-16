@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1110" height="326" viewBox="0 0 1110 326">
+  <g id="img" transform="translate(-405 -4804)">
+    <rect id="bg" width="1110" height="326" transform="translate(405 4804)" fill="#7e7f80"/>
+    <rect id="overlay" width="1110" height="326" transform="translate(405 4804)" fill="#7e7f80" opacity="0.4"/>
+  </g>
+</svg>

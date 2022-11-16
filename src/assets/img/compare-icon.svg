@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14.625" height="17.341" viewBox="0 0 14.625 17.341">
+  <g id="git-compare-outline" transform="translate(-1.688 -0.33)">
+    <path id="Path_1" data-name="Path 1" d="M10.688,5.625l-2.25-2.25,2.25-2.25" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.125"/>
+    <path id="Path_2" data-name="Path 2" d="M7.277,12.375l2.25,2.25-2.25,2.25" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.125"/>
+    <path id="Path_3" data-name="Path 3" d="M5.625,3.375a1.688,1.688,0,1,1-3.375,0,1.688,1.688,0,0,1,3.375,0Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.125"/>
+    <path id="Path_4" data-name="Path 4" d="M15.75,14.625a1.688,1.688,0,1,1-1.688-1.647,1.688,1.688,0,0,1,1.688,1.647Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.125"/>
+    <path id="Path_5" data-name="Path 5" d="M9,3.375h2.953a2.109,2.109,0,0,1,2.109,2.109v7.453" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.125"/>
+    <path id="Path_6" data-name="Path 6" d="M8.965,14.625H6.012A2.109,2.109,0,0,1,3.9,12.516V5.063" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.125"/>
+  </g>
+</svg>
