@@ -1,5 +1,4 @@
 import React from 'react';
-// import { ReactDOM } from 'react';
 import { useState } from 'react';
 import fixxoLogo from '../assets/img/Fixxo.svg';
 import searchIcon from '../assets/img/search-icon.svg';
@@ -13,13 +12,12 @@ import { UseShoppingCart } from './shoppingcart/ShoppingCartContext';
 const Navigationbar = () => {
 
   const [showMenu, setShowMenu] = useState(false)
-  const {cartQuantity} = UseShoppingCart()
+  const cartQuantity = UseShoppingCart()?.cartQuantity;
 
   const toggleMenu = () => {
     setShowMenu(!showMenu)
   }
 
-  // ReactDOM.createPortal(<div></div>, document.getElementById()) (
     return(
     <>
     <header className="container header">
@@ -40,7 +38,7 @@ const Navigationbar = () => {
             {/* search bar */}
             <div className="search">
                 <RoundButtonImg link="/search" image={searchIcon}></RoundButtonImg>
-                <i className="fa-light fa-xmark" alt="close button"></i>
+                <i className="fa-light fa-xmark"></i>
                 <input className="search-input" type="text"/>
             </div>
 

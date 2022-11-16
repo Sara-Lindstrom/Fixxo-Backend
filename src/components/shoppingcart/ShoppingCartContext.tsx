@@ -1,34 +1,37 @@
 import { createContext , useContext , useState } from "react";
 import ShoppingCart from "./ShoppingCart";
+import IShoppingCartProviderProps from "../../assets/models/useShoppingContextModels/IShoppingCartProviderProps"
+import ICartItem from "../../assets/models/useShoppingContextModels/ICartItem";
+import IProduct from "../../assets/models/IProduct";
+import IShoppingCartProviderReturn from "../../assets/models/useShoppingContextModels/IShoppingCartProviderReturn";
 
-const ShoppingCartContext = createContext()
+const ShoppingCartContext = createContext<IShoppingCartProviderReturn | null>(null)
 
 export const UseShoppingCart = () => {
     return useContext (ShoppingCartContext)
 }
 
-export const ShoppingCartProvider = ({children}) => {
+export const ShoppingCartProvider = ({children}: IShoppingCartProviderProps) => {
 
-    const [cartItem, setCartItem] = useState ([])
+    const [cartItem, setCartItem] = useState<ICartItem[]>([])
 
     const cartQuantity = cartItem.reduce(
         (quantity, item) => item.quantity + quantity, 0 
     )
 
-    const getItemQuantity = (articleNumber) => {
-        return cartItem.find(item => item.articleNumber === articleNumber)?.quantity || 0 
+    const getItemQuantity = (clickedProduct:IProduct) => {
+        return cartItem.find(item => item.product.articleNumber === clickedProduct.articleNumber)?.quantity || 0 
     }
 
-    const incrementQuantity = (cartItem) => {
-        const {articleNumber, product} = cartItem
+    const incrementQuantity = (clickedProduct: ICartItem) => {
 
-        setCartItem ( items => {
-            if (items.find(item => item.articleNumber === articleNumber) == null){
-                return [...items, { articleNumber, product, quantity: 1 }]
+        setCartItem (items => {
+            if (items.find(item => item.product.articleNumber === clickedProduct.product.articleNumber) == null){
+                return [...items, { product: clickedProduct.product, quantity: 1 }]
             }
             else{
                 return items.map(item => {
-                    if (item.articleNumber === articleNumber) {
+                    if (item.product.articleNumber === clickedProduct.product.articleNumber) {
                        return {...item, quantity: item.quantity +1} 
                     }
                     else {
@@ -40,16 +43,15 @@ export const ShoppingCartProvider = ({children}) => {
         })
     }
 
-    const decrementQuantity = (cartItem) => {
-        const {articleNumber} = cartItem
+    const decrementQuantity = (clickedProduct: ICartItem) => {
 
         setCartItem ( items => {
-            if (items.find (item => item.articleNumber === articleNumber).quantity === 1){
-                return items.filter (item => item.articleNumber !== articleNumber)
+            if (items.find(item => item.product.articleNumber === clickedProduct.product.articleNumber)?.quantity === 1){
+                return items.filter (item => item.product.articleNumber !== clickedProduct.product.articleNumber)
             }
             else {
                 return items.map (item => {
-                    if (item.articleNumber === articleNumber) {
+                    if (item.product.articleNumber === clickedProduct.product.articleNumber) {
                        return {...item, quantity: item.quantity -1} 
                     }
                     else {
@@ -61,13 +63,26 @@ export const ShoppingCartProvider = ({children}) => {
         })
     }
 
-    const removeItem = (articleNumber) => {
+    const removeItem = (clickedProduct:ICartItem) => {
         setCartItem ( items => {
-            return items.filter (item => item.articleNumber !== articleNumber)
+            return items.filter (item => item.product.articleNumber !== clickedProduct.product.articleNumber)
         })
     }
 
-    return <ShoppingCartContext.Provider value={{cartItem, cartQuantity, getItemQuantity, incrementQuantity, decrementQuantity, removeItem}}>
+
+    const result: IShoppingCartProviderReturn = 
+    {
+        cartItem: cartItem,
+        cartQuantity: cartQuantity,
+        getItemQuantity: getItemQuantity,
+        incrementQuantity:incrementQuantity,
+        decrementQuantity:decrementQuantity,
+        removeItem:removeItem
+    };
+
+
+
+    return <ShoppingCartContext.Provider value={result}>
         {children}
         <ShoppingCart/>
     </ShoppingCartContext.Provider>

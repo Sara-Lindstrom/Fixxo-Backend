@@ -1,14 +1,16 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import IRoundButtonIcon from '../assets/models/IRoundButton'
 
-const RoundButtonImg = ({link, image, onClickEvent, notificationNumber, cart=false}) => {
+
+const RoundButtonImg = (props: IRoundButtonIcon) => {
 
 
   return (
-    <NavLink to={link}>
-      <button onClick={onClickEvent} className="round-button">
-        <span className="notification-pill badge rounded-pill">{notificationNumber}</span>
-        <img src={image} alt=""/>
+    <NavLink to={props.link}>
+      <button onClick={props.onClickEvent} className="round-button">
+        <span className="notification-pill badge rounded-pill">{props.notificationNumber}</span>
+        <img src={props.image} alt=""/>
       </button>  
     </NavLink>
   )

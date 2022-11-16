@@ -5,17 +5,17 @@ import ShoppingCartItem from './ShoppingCartItem';
 
 const ShoppingCart = () => {
 
-  const { cartItem } = UseShoppingCart()
+  const cartItem = UseShoppingCart()?.cartItem ?? []
 
   return (
-    <div className="shoppingcart offcanvas offcanvas-end" tabIndex="-1" id="shoppingCart" aria-labelledby="shoppingCartLabel">
+    <div className="shoppingcart offcanvas offcanvas-end" tabIndex={-1} id="shoppingCart" aria-labelledby="shoppingCartLabel">
       <div className="offcanvas-header">
         <h5 className="offcanvas-title shoppingcart-title" id="shoppingCartLabel"><img className="cart-img" src={cartIcon} alt="shoppingcart"></img>Shopping Cart</h5>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div className="offcanvas-body">
         {
-        cartItem.map(item => (<ShoppingCartItem key={item.articleNumber} item={item}/>)) 
+        cartItem.map(item => (<ShoppingCartItem key={item.product.articleNumber} item={item}/>)) 
         }
       </div>
     </div>

@@ -6,10 +6,11 @@ import wishlistIcon from '../assets/img/wishlist-icon.svg';
 import { NavLink } from 'react-router-dom';
 import { UseShoppingCart } from './shoppingcart/ShoppingCartContext';
 import { currencyFormatter } from '../assets/utilities/currencyFormatter';
+import ICartItem from '../assets/models/useShoppingContextModels/ICartItem';
 
-const ProductCard = ({item, cardIsFlexed}) => {
+const ProductCard = (item:ICartItem, cardIsFlexed:boolean) => {
 
-    const { incrementQuantity } = UseShoppingCart()
+    const incrementQuantity = UseShoppingCart()?.incrementQuantity
 
     
     // https://stackoverflow.com/questions/47287177/how-to-loop-over-a-number-in-react-inside-jsx
@@ -31,7 +32,7 @@ const ProductCard = ({item, cardIsFlexed}) => {
     // card core
     <div className={cardIsFlexed ? "card card-side" : "card"}>
         <div className="card-background">
-            <img src={item.imageName} alt={item.name}/> 
+            <img src={item.product.imageName} alt={item.product.name}/> 
             
                             
             {/* options and availability */}
@@ -39,20 +40,20 @@ const ProductCard = ({item, cardIsFlexed}) => {
                 <ul>
                     <li><RoundButtonImg  image={wishlistIcon}></RoundButtonImg></li>
                     <li><RoundButtonImg  image={compareIcon}></RoundButtonImg></li>
-                    <li><RoundButtonImg onClickEvent={() => incrementQuantity({articleNumber: item.articleNumber, product: item})} image={cartIcon}></RoundButtonImg></li>
+                    <li><RoundButtonImg onClickEvent={() => incrementQuantity !== undefined ? incrementQuantity(item) : {}} image={cartIcon}></RoundButtonImg></li>
                 </ul>
 
                 {/* button to relocate to productdetails */}
-                <button className="button theme-button"><NavLink className="theme-button-link" to={`/product/id/${item.articleNumber}`}>QUICK&nbsp;VIEW</NavLink></button>
+                <button className="button theme-button"><NavLink className="theme-button-link" to={`/product/id/${item.product.articleNumber}`}>QUICK&nbsp;VIEW</NavLink></button>
             </div>
         </div>
 
         {/* product information */}
         <div className="product-info">
-            <p className="category">{item.category}</p>
-            <h4 className="product-name">{item.name}</h4>
-            <div className='star-rating'>{rating(item.rating)}</div>
-            <span className="original-price">{currencyFormatter(item.price)}</span>
+            <p className="category">{item.product.category}</p>
+            <h4 className="product-name">{item.product.name}</h4>
+            <div className='star-rating'>{rating(item.product.rating)}</div>
+            <span className="original-price">{currencyFormatter(item.product.price)}</span>
         </div> 
     </div>   
   )
