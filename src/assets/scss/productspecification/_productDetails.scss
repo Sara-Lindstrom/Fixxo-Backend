@@ -1,0 +1,237 @@
+.product-detail-container{
+
+    @include xl {
+    display: flex;
+    }
+
+    .img-grid {
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        gap:1rem;
+        margin: 1rem auto;
+
+        @include md {
+            margin-top: 2rem;
+            width: 40vw;
+        }
+
+        @include xl {
+            margin-right: 2rem;
+        }
+
+        .big-image-box{
+            flex:1;
+            grid-column: 1 / -1;
+            grid-row:1;
+            height: fit-content;
+        }
+
+        .small-image-box{
+            flex:1;
+            grid-row: 2;
+            height: fit-content;
+        }
+
+        .product-detail-img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+        }
+    }    
+
+    .info-box {
+        flex:1;
+        
+        .title {
+            font-size: 2rem;
+            font-weight: $font-weight-bold;
+            margin-top: 2rem;
+            margin-bottom: 0;
+        }
+
+        .rating{
+            color: $color-theme;
+            font-size: $font-size-13;
+            font-weight: $font-weight-regular;
+        }
+
+        .price {
+            font-size: $font-size-16;
+            font-weight: $font-weight-regular;
+        }
+
+        .description{
+            font-size: $font-size-16;
+            font-weight: $font-weight-regular;
+            padding-right:1.5rem;
+            margin: 2rem auto;
+
+            .Show-button{
+                border:none;
+                background-color: white;
+                color: $color-theme;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .product-form{
+            margin: 4rem 0;
+
+            .size-box{
+                margin: 1rem auto; 
+                display: flex;
+
+                .label {
+                    min-width: 7rem;
+                    text-align: left;
+                } 
+                
+                .button-box{
+                    display: flex;
+                    width:100%;
+                    justify-content: center;
+
+                    @include md {
+                        justify-content: left;
+                    }
+
+                    .size-option{
+                        width: 2rem;
+                        height: 2rem;
+                        text-align: center;
+                        background-color: white;
+                        border: 1px $color-gray-30 solid;
+                        margin: auto 1rem;
+                        transition: all 500ms;
+
+                        @include md {
+                            margin-left: 0;
+                        }
+
+                        &:hover {
+                            background-color: $color-theme;
+                            color: white;
+                            border: 1px $color-theme solid;
+                        }
+
+                        &:focus{
+                            background-color: $color-theme;
+                            color: white;
+                            border: 1px $color-theme solid;
+                        }
+                    }                      
+                }
+              
+            }
+
+            .color-option{
+                margin: 1rem auto; 
+                display: flex;
+
+                .label {
+                    min-width: 7rem;
+                    text-align: left;
+                } 
+                
+                .dropdown {
+                    width: 100%;
+                    text-align: center;
+                    
+                    @include md {
+                        text-align: start;
+                    }
+
+                    .color-dropdown{
+                        height: 2rem;
+                        padding-right: 1rem;
+                        padding-left: 1rem;
+                        background-color: white;
+                        border: 1px $color-gray-30 solid;
+                    }
+                }
+            }
+
+            .quantity-option {
+                display: flex;
+                height: 2rem;
+
+                .label {
+                    min-width: 7rem;
+                    text-align: left;
+                } 
+
+                .counter{
+                    display: flex;
+                    justify-content: center;
+                    width: 100%;
+
+                    @include md {
+                        justify-content: left;
+                    }
+
+                    .counter-button{
+                        width: 2rem;
+                        height: 2rem;
+                        text-align: center;
+                        background-color: white;
+                        border: 1px $color-gray-30 solid;
+                        margin: auto 1rem;
+                        transition: all 500ms;
+
+                        &:hover {
+                            background-color: $color-theme;
+                            color: white;
+                            border: 1px $color-theme solid;
+                        }
+                    }
+
+                    .count-amount{
+                        margin:auto 1rem;
+                    }                    
+                }
+            }
+
+            .product-submit-button-option{
+                margin: 2rem 0;
+
+                .product-submit-button{
+                    width: 100%;
+                    height: 3rem;
+
+                    @include md {
+                        width: auto;
+                    }
+                }
+            }
+        }
+
+        .share-options{
+            display: flex;
+            
+            .label {
+                width: 7rem;
+                text-align: left;
+            }
+
+            .social-media-options{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 2rem;
+
+                @include md {
+                    justify-content: left;
+                }
+
+                .social-media-button{
+                    margin: auto 0.5rem;
+                    background-color: $color-gray-30;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}
+

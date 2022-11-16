@@ -1,0 +1,62 @@
+.pamela-reif-lets-be-conscious {
+    margin-top: 2rem;
+    @include md {
+        display: flex;
+        gap:1rem;
+        justify-content: center;
+    }
+
+    // left box
+    .pamela-reif {
+        position: relative;
+        max-width: 100vw;
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+        }
+
+        .info {
+            position: absolute;
+            top: 50%;
+            right:1rem;
+            text-align: right;
+            transform: translateY(-50%);
+            color: white;
+            font-weight: $font-weight-bold;
+            font-size: $font-size-20;
+
+            button {
+                font-size: $font-size-13;
+            }
+        }
+    }
+
+    // right box
+    .lets-be-conscious {
+        position: relative;
+        max-width: 100vw;
+
+        img{  
+            width: 100%;
+            height: 100%;
+            object-fit: contain;  
+        }
+
+        .info {
+            position: absolute;
+            top: 50%;
+            left:1rem;
+            text-align: left;
+            transform: translateY(-50%);
+            color: $color-dark;
+            font-weight: $font-weight-bold;
+            font-size: $font-size-20;
+
+            button {
+                font-size: $font-size-13;
+            }
+        }
+    }
+}

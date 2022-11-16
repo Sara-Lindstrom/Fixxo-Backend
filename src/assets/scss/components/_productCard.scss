@@ -1,0 +1,162 @@
+.card {
+    border:none;
+    margin: 1rem auto;
+    max-width: fit-content;
+    text-align: center;
+
+    &:hover {
+        .card-background{
+            .card-options {
+                left:0;
+            }
+        }
+    }
+
+    // picture and hover
+    .card-background {
+        max-width: 40vw;              
+        position: relative;
+        overflow: hidden;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .card-options{
+            position: absolute;
+            top: 0;
+            left:0;
+            height: 100%;
+            width: 100%;
+            background-color: transparent;
+            transition: left 500ms;
+
+            @include lg {
+                background-color: #7e7f806c;
+                left: 100%;
+            }
+
+            ul {  
+                position: absolute;
+                display: flex;
+                justify-content: space-between;
+                padding:0;
+
+                
+                @include md {
+                    top:0.5rem;
+                    right:0.5rem;
+                    display:initial;
+                }
+
+                li{
+                    margin: 0.5rem;
+                }
+            }
+
+            .button {
+                position: absolute;
+                width: 100%;
+                bottom: 0;
+                left:0;
+                font-size: 0.7rem;
+                padding:0.3rem;
+
+                
+                @include md {
+                    bottom: 0;
+                    padding:0.8rem 3rem;  
+                }
+
+
+                @include lg {
+                    font-size: initial;
+                }
+            }
+        }
+    }
+
+    // product information
+    .product-info {
+
+        .category {
+            font-size: $font-size-13;
+            font-weight: $font-weight-medium;
+            color: $color-gray-70;
+            margin:0.2rem;
+
+            @include lg {
+                font-size: $font-size-13;
+                font-weight: $font-weight-regular;
+            }
+        }
+
+        .product-name {
+            font-size: $font-size-13;
+            font-weight: $font-weight-semibold;
+            color: $color-dark;
+            margin:0.2rem;
+
+            @include md {
+                font-size: $font-size-16;
+            }
+        }
+
+        .star-rating {
+            color: $color-theme;
+            font-size: $font-size-13;
+            margin: 0.5rem 0;
+
+            i {    
+            margin:0 0.1rem;
+            }
+        }
+
+        .disscount-price {
+            display:inline;
+            margin-right: 0.5rem;
+            font-size: $font-size-13;
+
+            
+            @include md {
+                font-size: $font-size-16;   
+            }
+
+            @include lg {
+                font-size: $font-size-18;
+            }
+
+            .active{
+                color: $color-theme;
+            }
+        } 
+
+        .original-price {
+            display:inline;
+            font-size: $font-size-13;
+            color: $color-dark;
+            
+            @include md {
+                font-size: $font-size-16;   
+            }
+
+            @include lg {
+                font-size: $font-size-18;
+            }
+        }
+    }
+} 
+
+// Card info to side
+.card-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row: auto;
+    gap:1rem;
+    margin: 2rem auto;
+    align-items: center;
+    text-align: left;
+    padding: 0;
+}

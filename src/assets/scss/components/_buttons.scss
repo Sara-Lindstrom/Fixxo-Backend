@@ -1,0 +1,196 @@
+// BUTTONS
+.button {
+    padding: 0.3rem 2rem;
+    border:none;    
+    font-family: $font-poppins; 
+    font-size: $font-size-13;  
+    font-weight: $font-weight-semibold;     
+
+    @include lg {
+        padding:0.8rem 3rem;
+        font-size: $font-size-16; 
+    }
+
+}
+
+.theme-button {
+    background-color: $color-theme;
+    color: white;
+    transition: color 300ms;
+
+    &:hover{
+        color:$color-dark;
+
+        &::before {
+            border-left:2px solid $color-dark;
+            border-top:2px solid $color-dark;
+        }
+        
+        &::after{
+            border-right:2px solid $color-dark;
+            border-bottom:2px solid $color-dark;
+        }
+
+        .theme-button-link {
+            color:$color-dark;
+        }
+    }
+
+    // decoration from https://stackoverflow.com/questions/60466314/how-to-do-a-partial-border-for-a-button-in-css
+    position:relative;
+
+    &::before,
+    &::after{
+        position: absolute;
+        content: '';
+        width: 0.8rem;
+        height: 0.8rem;
+    }
+
+    &::before{
+        left:0.4rem;
+        top:0.4rem;
+        border-left:2px solid white;
+        border-top:2px solid white;
+        transition: border 300ms;
+    }
+    &::after{
+        right:0.4rem;
+        bottom:0.4rem;
+        border-right:2px solid white;
+        border-bottom:2px solid white;
+        transition: border 300ms;
+    }
+
+    .theme-button-link {
+        color:white;
+    }
+}
+
+.dark-button {
+    background-color: $color-dark;
+    color: white;
+    transition: background-color 300ms;
+
+    &:hover{
+        background-color: $color-theme;
+    }
+
+    // decoration
+    position:relative;
+
+    &::before,
+    &::after{
+        position: absolute;
+        content: '';
+        width: 0.8rem;
+        height: 0.8rem;
+    }
+
+    &::before{
+        left:0.4rem;
+        top:0.4rem;
+        border-left:2px solid white;
+        border-top:2px solid white;
+    }
+    &::after{
+        right:0.4rem;
+        bottom:0.4rem;
+        border-right:2px solid white;
+        border-bottom:2px solid white;
+    }
+}
+
+.light-button {
+    background-color: white;
+    color: $color-dark;
+    transition: color 300ms;
+
+    &:hover{
+        color: $color-theme;
+
+        &::before {
+            border-left:2px solid $color-theme;
+            border-top:2px solid $color-theme;
+        }
+        
+        &::after{
+            border-right:2px solid $color-theme;
+            border-bottom:2px solid $color-theme;
+        }
+    }
+
+    // decoration
+    position:relative;
+
+    &::before,
+    &::after{
+        position: absolute;
+        content: '';
+        width: 0.8rem;
+        height: 0.8rem;
+    }
+
+    &::before{
+        left:0.4rem;
+        top:0.4rem;
+        border-left:2px solid $color-dark;
+        border-top:2px solid $color-dark;
+        transition: border 300ms;
+    }
+    &::after{
+        right:0.4rem;
+        bottom:0.4rem;
+        border-right:2px solid $color-dark;
+        border-bottom:2px solid $color-dark;
+        transition: border 300ms;
+    }
+}
+
+.round-button {
+    border-radius: 50%;
+    background-color: $color-gray-10;
+    border:none;
+    box-shadow: 0px 2px 3px 0px $color-gray-50;
+    transition: background-color 500ms;            
+    margin-left: 0.5rem;
+    position: relative;
+
+    img {
+        height: 90%;
+        width: 90%;
+        object-fit: contain;
+        transition: filter 300ms, background-color 300ms;
+    }
+
+    &:hover {  
+        background-color: $color-theme;
+
+        img {
+            filter: invert(100);
+        }
+
+        .notification-pill {
+            background-color: $color-dark;
+        }
+    }
+
+    .notification-pill{
+        position:absolute;
+        top:-1.2rem;
+        left:0;
+        background: $color-theme;
+        transition: all 500ms;
+
+        @include lg {
+            top:-1rem;
+            left:0.7rem;
+            transition: all 500ms;
+        }
+
+        @include md {
+            top:-1rem;
+            left:0.7rem;
+        }
+    }
+}

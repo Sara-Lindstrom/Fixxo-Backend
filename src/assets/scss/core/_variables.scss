@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+// FONTS
+$font-poppins: 'poppins', sans-serif;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extra-bold: 800;
+
+$font-size-13: 0.8rem;
+$font-size-16: 1rem;
+$font-size-18: 1.12rem;
+$font-size-20: 1.25rem;
+$font-size-45: 2.8rem;
+$font-size-65: 4rem;
+
+// COLORS
+$color-theme: #FF7373;
+$color-dark: #23262A;
+
+$color-gray-10: #F8F8F8;
+$color-gray-20: #F5F5F5;
+$color-gray-30: #EDEDED;
+$color-gray-40: #BBBBBB;
+$color-gray-50: #ABACAF;
+$color-gray-60: #7E7F80;
+$color-gray-70: #616365;
+
+// BREAKPOINST
+$breakpoint-md: 768px;
+$breakpoint-md-max-width: 720px;
+
+$breakpoint-lg: 992px;
+$breakpoint-lg-max-width: 960px;
+
+$breakpoint-xl: 1140px;
+$breakpoint-xl-max-width: 1140px;
+
+$breakpoint-xxl: 1400px;
+$breakpoint-xxl-max-width: 1320px;

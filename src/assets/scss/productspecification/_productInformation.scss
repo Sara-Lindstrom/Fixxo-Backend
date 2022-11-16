@@ -1,0 +1,44 @@
+.nav-tabs-design{
+    display: flex;
+    min-width: 100%;
+    justify-content: space-between !important;
+    font-size: $font-size-13;
+    padding-left: 0;
+    margin-top: 2rem;
+    
+    @include xl {
+        margin-top: 5rem;
+    }
+
+    .tab-design{
+        font-weight: $font-weight-semibold;
+
+        @include md {
+            font-size: $font-size-16;
+            margin: 0 1rem;
+        }
+
+        &:first-child{
+            margin: 0;
+        }
+    }
+}
+
+.tab-content {
+    font-size: $font-size-13;
+    color: $color-dark;
+    margin-bottom: 5rem;
+
+    .active {
+        color: $color-dark;
+    }
+
+    @include md {
+        font-size: $font-size-16;
+    }
+
+    .product-info-li{
+        list-style-type:circle;
+    }
+
+}

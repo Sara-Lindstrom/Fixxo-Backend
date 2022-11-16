@@ -1,0 +1,55 @@
+// 70% off
+.sale {
+    position: relative;
+    height: fit-content;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+
+    // background
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+
+    // info
+    .info {
+        position: absolute;
+        top: 50%;
+        left:50%;
+        transform: translate(-50% , -50%);
+        color: white;
+        text-align: center;
+        width: 100%;
+
+        h4 {
+            font-size: $font-size-18;
+            margin:0;
+
+            @include md {
+                font-size: $font-size-45;
+            }
+        }
+
+        p {
+            font-size: 0.7rem;
+            margin:0.3rem;
+
+            @include md {
+                font-size: $font-size-16;
+                margin: 0.8rem;
+            }
+        }
+
+        button {
+            font-size: $font-size-13;
+            padding: 0.4rem 2rem;
+
+            @include md {
+                font-size: $font-size-16;
+                padding:0.8rem 3rem;
+            }
+        }
+
+    }
+}

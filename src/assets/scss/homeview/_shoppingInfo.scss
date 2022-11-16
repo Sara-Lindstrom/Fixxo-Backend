@@ -1,0 +1,93 @@
+.our-speciality {
+    background-color: $color-gray-30;
+    padding: 0.5rem;
+    margin-top: 2rem;
+
+    @include lg {
+        padding: 1rem;
+    }
+
+    // big box
+    .flexed-box {
+        gap: 0.5rem;
+        justify-content: space-between;
+        align-items: stretch;
+        display: flex;
+
+        @include lg {
+            gap:1rem;
+            margin-top: 1.5rem;
+        }
+
+        // small info box
+        .info-box {
+            flex:1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+
+            .info {
+                flex:1;
+                padding: 1.5rem 0.5rem;
+                text-align: center;
+                position: relative;
+
+                p {
+                    font-size: $font-size-13;
+                    font-weight: $font-weight-semibold;
+                    margin-bottom: 1.3rem;
+
+                    @include lg {
+                        font-size: $font-size-20;
+                    }
+
+                }
+
+                .get-started {
+                    font-size: $font-size-13;
+                    text-decoration: underline;
+                    color: $color-dark;
+                    margin-bottom: 0;
+                    position: absolute;
+                    bottom:1rem;
+                    left: 0;
+                    width: 100%;
+
+                    @include lg {
+                        font-size: $font-size-16;
+                        font-weight: $font-weight-semibold;
+                        position:static;
+                        
+                    }
+
+                    &:hover {
+                        color: $color-theme;
+                    }
+                }
+            }
+
+            // image
+            img {
+                flex: 1;
+                display: none;
+
+                @include md {
+                    display: inline;   
+                    max-width: 50%;
+                    max-height: 90%;
+                    object-fit: contain;           
+                }
+
+                @include xl {
+                    max-width: 90%;
+                    max-height: 90%;
+                    object-fit: contain;
+                    margin: auto;
+                    margin:0;
+                }
+            }
+        }        
+    }
+    
+}  

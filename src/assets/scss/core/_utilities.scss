@@ -1,0 +1,133 @@
+// general designs throughout whole website
+.html, body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    font-family: $font-poppins;
+    font-weight: $font-weight-regular;
+    color: $color-dark;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 0.7rem;
+
+    @include md {
+        max-width: $breakpoint-md-max-width;
+    }
+    @include lg {
+        max-width: $breakpoint-lg-max-width;
+    }
+    @include xl {
+        max-width: $breakpoint-xl-max-width;
+    }
+    @include xxl {
+        max-width: $breakpoint-xxl-max-width;
+    }
+}
+
+
+.container-fluid {
+    max-width: 100vw;
+}
+
+.d-none {
+    display: none;
+}
+
+.flex {
+    display:block;
+
+    @include lg {
+      display: flex; 
+    }
+
+}
+
+.d-grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap:2rem;
+    padding: 1rem;
+
+    @include lg {  
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.d-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap:2rem;
+    padding: 1rem;
+}
+
+// LINKS
+a{
+    color: $color-dark;
+    text-decoration: none;
+    transition: color 300ms;
+
+    &:hover {
+        color: $color-theme;
+    }
+    
+}
+
+ul {
+    list-style: none;
+    max-width: fit-content;
+}
+
+.active {
+    color: $color-theme;
+}
+
+// QUICK HELP
+.hidden-text{
+    display:none;
+
+    @include md {
+        display:inline;
+    }
+}
+
+.aktive-navigation-text{
+    color: $color-theme;
+}
+
+// HEADLINE
+.headline {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: $font-size-20;
+    font-weight: $font-weight-bold;
+}
+
+// LINBREAK
+.line-break {
+    margin-top: 2rem;
+}
+
+//ERROR PAGE
+.not-found{
+    margin:2rem;
+    margin-top: 4rem;
+    max-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .error-img{
+        max-height: 100%;
+        max-width:100%;
+        object-fit: contain;
+    }
+}
+
+ 

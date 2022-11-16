@@ -1,0 +1,30 @@
+// CORE
+@import "./core/variables";
+@import "./core/mixins";
+@import "./core/utilities";
+
+// COMPONENTS
+@import "./components/buttons";
+@import "./components/productCard";
+@import "./components/navigationbar";
+@import "./components/footer.scss";
+@import "./components/shoppingCart";
+@import "./components/breadcrumb";
+
+// HOMEVIEW
+@import "./homeview/showcase.scss";
+@import "./homeview/featuredShowcase";
+@import "./homeview/shoppingInfo";
+@import "./homeview/showcaseGrid";
+@import "./homeview/saleShowcase";
+@import "./homeview/companyInformation";
+
+// CONTACT
+
+@import "./contactview/map";
+@import "./contactview/contactForm";
+
+// PRODUCT SPECIFICATION
+@import "./productspecification/productDetails";
+@import "./productspecification/productInformation";
+@import "./productspecification/relatedProducts";

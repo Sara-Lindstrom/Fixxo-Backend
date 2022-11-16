@@ -1,0 +1,106 @@
+// title
+.come-in-contact-title {
+    font-size: $font-size-20;
+    margin: 0 1rem;
+
+    
+    @include lg {
+        width: 70vw;
+        margin: 0 auto;
+    }
+}
+
+// error message and commited comment
+.error {
+    outline: 1px solid $color-theme;
+}
+
+.error-message {
+    color: $color-theme;
+    font-size: $font-size-13;
+}
+
+.submitted-comment {
+    max-width: 70vw;
+    margin:1rem auto 2rem auto;
+}
+
+.submitted-comment-fail {
+    max-width: 70vw;
+    margin:1rem auto 2rem auto;
+}
+
+// form
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap:1rem;
+    margin: 1rem 1rem;
+
+    @include md {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @include lg {
+        width: 70vw;
+        margin: 1rem auto;
+    }
+
+    // input general, name and email
+    input {
+        width: 100%;
+        padding: 0.3rem 0.5rem;
+        border: 1px $color-gray-40 solid;
+    }
+
+    .name {
+        @include md {
+            grid-column: 1;
+            grid-row: 1;
+        }
+    }
+
+    .email {
+        @include md {
+            grid-column: 2;
+            grid-row: 1;
+        }
+    }
+
+    // textarea general and comment
+    textarea {
+        width: 100%;
+        height: 5rem;
+        resize: none;
+        padding: 0.3rem 0.5rem;
+        border: 1px $color-gray-40 solid;
+    }
+
+    .comment {
+        @include md {
+            grid-column: 1 / -1;
+            grid-row: 2;
+        }
+    }
+
+    // submit button
+    button {
+        width: 100%;
+        height: 2.5rem;
+        margin-bottom: 2rem;
+
+        @include lg {
+            width: fit-content;
+            height: initial;
+        }
+    }
+
+    .submit {
+        @include md {
+            grid-column: 1;
+            grid-row: 3;
+        }     
+    }
+
+}
