@@ -8,9 +8,8 @@ export const submitData = async (url:string, method:string, data:string, content
         },
         body: data
     })
-        console.log(result)
 
-            if (result.status === 200){
+        if (result.status === 200){
             return true
         }
 

@@ -7,7 +7,7 @@ import {UseGetAllProducts} from '../Hooks/UseGetAllProducts'
 
 const ProductBrowse = () => {
     
-const allProducts = UseGetAllProducts()
+    const allProducts = UseGetAllProducts()
 
     return (
         <>
@@ -15,12 +15,12 @@ const allProducts = UseGetAllProducts()
             <div className='wrapper'>
                 <Navigationbar/>
                 <BreadCrumb currentPage="Products" advertising={""}/>
-                <ProductGrid title="Products" col={4} item={allProducts} cardIsFlexed={false}/>  
+                <ProductGrid title="Products" col={4} items={allProducts} cardIsFlexed={false}/>  
             </div>
                 <Footer/>
             </div>
         </>
-        )
+    )
 }
 
 export default ProductBrowse

@@ -8,7 +8,7 @@ import { UseShoppingCart } from './shoppingcart/ShoppingCartContext';
 import { currencyFormatter } from '../assets/utilities/currencyFormatter';
 import ICartItem from '../assets/models/useShoppingContextModels/ICartItem';
 
-const ProductCard:React.FC<{product:ICartItem, isFlexed:boolean, key:string}> = ({product, isFlexed, key}) => {
+const ProductCard:React.FC<{product:ICartItem, isFlexed:boolean}> = ({product, isFlexed}) => {
 
     const incrementQuantity = UseShoppingCart()?.incrementQuantity
 

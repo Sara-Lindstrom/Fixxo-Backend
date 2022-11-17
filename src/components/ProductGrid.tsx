@@ -1,18 +1,19 @@
 import React from 'react'
 import ProductCard from './ProductCard'
-import IPrductCardItem from '../assets/models/IproductCardItem'
 import ICartItem from '../assets/models/useShoppingContextModels/ICartItem'
 
-const ProductGrid:React.FC<{title:string, col:number,cardIsFlexed:boolean, item:ICartItem[]}> = ({title, col, cardIsFlexed, item=[]}) => {
+const ProductGrid:React.FC<{title:string, col:number, cardIsFlexed:boolean, items:ICartItem[] | null}> = ({title, col, cardIsFlexed, items=null}) => {
   
-  const productInfo:IPrductCardItem = {title:title, col:col, cardIsFlexed:cardIsFlexed}
+  if(items === null || items.length === 0){
+    return <></>
+  }
 
   return (
     <div className="container">
-        <h4 className="headline">{productInfo.title}</h4>
-        <div className={`d-grid-${productInfo.col}`}>
+        <h4 className="headline">{title}</h4>
+        <div className={`d-grid-${col}`}>
 
-          {item.map(product => <ProductCard product={product} isFlexed={productInfo.cardIsFlexed} key={product.product.articleNumber}/>)}
+          {items.map(item => <ProductCard product={item} isFlexed={cardIsFlexed} key={item.product.articleNumber}/>)}
 
         </div>
     </div>

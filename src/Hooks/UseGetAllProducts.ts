@@ -1,9 +1,10 @@
 import { useEffect, useState} from 'react';
+import ICartItem from '../assets/models/useShoppingContextModels/ICartItem';
 
 
 export const UseGetAllProducts = () => {
 
-    const [allProducts, setAllProducts] = useState ([])
+    const [allProducts, setAllProducts] = useState<ICartItem[]|null>(null)
 
         useEffect (() => {
         const fetchAllData = async () => {

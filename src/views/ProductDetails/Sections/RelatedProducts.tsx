@@ -4,8 +4,10 @@ import UseGetFeaturedProducts from '../../../Hooks/UseGetFeaturedProducts'
 
 
 const RelatedProducts = () => {
+
   const feauredProduct2 = UseGetFeaturedProducts(2)
   const feauredProduct4 = UseGetFeaturedProducts(4)
+
   return (
     <div className='container carousel-box'>
         <h4 className='container carousel-title'>Related Products</h4> 
@@ -14,25 +16,25 @@ const RelatedProducts = () => {
             { window.innerWidth < 960 ?
                 <div className="carousel-inner carousel-design">        
                     <div className="carousel-item active">
-                        <ProductGrid title={""} col={2} item={feauredProduct2} cardIsFlexed={false}/>
+                        <ProductGrid title={""} col={2} items={feauredProduct2} cardIsFlexed={false}/>
                     </div>
                     <div className="carousel-item ">
-                        <ProductGrid title={""} col={2} item={feauredProduct2} cardIsFlexed={false}/>
+                        <ProductGrid title={""} col={2} items={feauredProduct2} cardIsFlexed={false}/>
                     </div>
                     <div className="carousel-item ">
-                        <ProductGrid title={""} col={2} item={feauredProduct2} cardIsFlexed={false}/>
+                        <ProductGrid title={""} col={2} items={feauredProduct2} cardIsFlexed={false}/>
                     </div>
                 </div>  
                 :
                 <div className="carousel-inner carousel-design">        
                     <div className="carousel-item active ">
-                        <ProductGrid title={""} col={4} item={feauredProduct4} cardIsFlexed={false}/>
+                        <ProductGrid title={""} col={4} items={feauredProduct4} cardIsFlexed={false}/>
                     </div>
                     <div className="carousel-item ">
-                        <ProductGrid title={""} col={4} item={feauredProduct4} cardIsFlexed={false}/>
+                        <ProductGrid title={""} col={4} items={feauredProduct4} cardIsFlexed={false}/>
                     </div>
                     <div className="carousel-item ">
-                        <ProductGrid title={""} col={4} item={feauredProduct4} cardIsFlexed={false}/>
+                        <ProductGrid title={""} col={4} items={feauredProduct4} cardIsFlexed={false}/>
                     </div>
                 </div>  
             }
