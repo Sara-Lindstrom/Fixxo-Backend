@@ -14,25 +14,25 @@ const RelatedProducts = () => {
             { window.innerWidth < 960 ?
                 <div className="carousel-inner carousel-design">        
                     <div className="carousel-item active">
-                        <ProductGrid col={"2"} items={feauredProduct2}/>
+                        <ProductGrid title={""} col={2} item={feauredProduct2} cardIsFlexed={false}/>
                     </div>
                     <div className="carousel-item ">
-                        <ProductGrid col={"2"} items={feauredProduct2}/>
+                        <ProductGrid title={""} col={2} item={feauredProduct2} cardIsFlexed={false}/>
                     </div>
                     <div className="carousel-item ">
-                        <ProductGrid col={"2"} items={feauredProduct2}/>
+                        <ProductGrid title={""} col={2} item={feauredProduct2} cardIsFlexed={false}/>
                     </div>
                 </div>  
                 :
                 <div className="carousel-inner carousel-design">        
                     <div className="carousel-item active ">
-                        <ProductGrid col={"4"} items={feauredProduct4}/>
+                        <ProductGrid title={""} col={4} item={feauredProduct4} cardIsFlexed={false}/>
                     </div>
                     <div className="carousel-item ">
-                        <ProductGrid col={"4"} items={feauredProduct4}/>
+                        <ProductGrid title={""} col={4} item={feauredProduct4} cardIsFlexed={false}/>
                     </div>
                     <div className="carousel-item ">
-                        <ProductGrid col={"4"} items={feauredProduct4}/>
+                        <ProductGrid title={""} col={4} item={feauredProduct4} cardIsFlexed={false}/>
                     </div>
                 </div>  
             }

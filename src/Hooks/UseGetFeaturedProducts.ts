@@ -2,7 +2,7 @@ import { useEffect, useState} from 'react';
 
 // If this site would have been to a customer. 
 // I would have made different methods for each fetch to get different cards corresponding to each section.
-export const UseGetFeaturedProducts = (cardAmount) => {
+export const UseGetFeaturedProducts = (cardAmount:number) => {
 
     const [featuredProducts, setFeaturedProducts] = useState ([])
 

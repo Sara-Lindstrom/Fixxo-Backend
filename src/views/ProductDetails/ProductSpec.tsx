@@ -10,12 +10,16 @@ import RelatedProducts from './Sections/RelatedProducts';
 
 const ProductSpec = () => {
   const {id} = useParams()
-  const Product = UseGetProduct(id)
+  const Product = UseGetProduct(id===undefined ? "" : id)
+
+  if (Product == null){
+    return <></>
+  }
 
   return (
     <>
       <Navigationbar/>
-      <BreadCrumb currentPage="Product Details" comersial="Get 25% OFF at the Fixxo Selection - Shop Now!"/>
+      <BreadCrumb currentPage="Product Details" advertising="Get 25% OFF at the Fixxo Selection - Shop Now!"/>
       <ProductDetails item={Product}/>
       <ProductInformation/>
       <RelatedProducts/>

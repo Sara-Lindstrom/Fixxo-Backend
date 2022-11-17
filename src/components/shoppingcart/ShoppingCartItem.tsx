@@ -4,7 +4,7 @@ import { currencyFormatter } from '../../assets/utilities/currencyFormatter'
 import { UseShoppingCart } from './ShoppingCartContext'
 
 
-const ShoppingCartItem = (item: ICartItem) => {
+const ShoppingCartItem:React.FC<{item: ICartItem}> = ({item}) => {
 
   const context =  UseShoppingCart();
   const incrementQuantity = context?.incrementQuantity;

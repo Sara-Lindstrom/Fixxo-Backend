@@ -1,7 +1,8 @@
 import React from 'react'
+import ICartItem from '../../../assets/models/useShoppingContextModels/ICartItem';
 import ProductGrid from '../../../components/ProductGrid';
 
-const ShowCaseGrid = ({leftImg, leftAlt, col, items = [], rightImg, rightAlt}) => {
+const ShowCaseGrid:React.FC<{leftImg:string, leftAlt:string, col:number, item:ICartItem[], rightImg:string, rightAlt:string}> = ({leftImg, leftAlt, col, item = [], rightImg, rightAlt}) => {
 
 
   const leftShow = leftImg !== "" ? true : false;
@@ -21,7 +22,7 @@ const ShowCaseGrid = ({leftImg, leftAlt, col, items = [], rightImg, rightAlt}) =
       </div>
 
       {/* card grid */}
-      <ProductGrid title={""} items={items} col={col}/>
+      <ProductGrid title={""} item={item} col={col} cardIsFlexed={false}/>
 
       {/* if right image is active */}
       <div className={rightShow ? "group" : "d-none"}>

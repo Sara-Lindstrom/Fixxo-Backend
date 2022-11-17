@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import IProduct from '../../../assets/models/IProduct'
 import { currencyFormatter } from '../../../assets/utilities/currencyFormatter'
 
 
-const ProductDetails = ({item}) => {
+const ProductDetails:React.FC<{item:IProduct}> = ({item}) => {
 
   const [countAmount, setCountAmount] = useState(0)
   const [showMore, setShowMore] = useState(false)
@@ -10,16 +11,16 @@ const ProductDetails = ({item}) => {
 
   const text = "Discovered had get considered projection who favourable. Necessary up knowledge it tolerably. Unwilling departure education is be dashwoods or an. Use off agreeable law unwilling sir deficient curiosity instantly. Discovered had get considered projection who favourable. Necessary up knowledge it tolerably. Unwilling departure education is be dashwoods or an. Use off agreeable law unwilling sir deficient curiosity instantly."
 
-  const changeColorOption = (e) => {
+  const changeColorOption = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    let color = e.target.name
+    let color:string = e.currentTarget.name
     setColorPlacehoderOption(color)
     return colorPlacehoderOption
   } 
 
 
   // https://stackoverflow.com/questions/47287177/how-to-loop-over-a-number-in-react-inside-jsx
-  const rating = (starRating) => {
+  const rating = (starRating:number) => {
     let stars = []
     for (let i = 0; i<starRating; i++){
      stars.push(<i className="fa-solid fa-star" key={i}></i>)

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CompanyInformation = ({companyimg, companytitle, companyinfo}) => {
+const CompanyInformation:React.FC<{companyimg:string, companytitle:string, companyinfo:string}> = ({companyimg, companytitle, companyinfo}) => {
   return (
     <div className="container">
         <div className="group-info">

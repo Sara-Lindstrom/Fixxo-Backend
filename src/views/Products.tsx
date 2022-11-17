@@ -14,8 +14,8 @@ const allProducts = UseGetAllProducts()
             <div className='footer-wrapper'>
             <div className='wrapper'>
                 <Navigationbar/>
-                <BreadCrumb currentPage="Products"/>
-                <ProductGrid title="Products" col={"4"} items={allProducts}/>  
+                <BreadCrumb currentPage="Products" advertising={""}/>
+                <ProductGrid title="Products" col={4} item={allProducts} cardIsFlexed={false}/>  
             </div>
                 <Footer/>
             </div>

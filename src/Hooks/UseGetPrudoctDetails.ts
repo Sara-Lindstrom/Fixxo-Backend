@@ -1,8 +1,9 @@
 import { useEffect, useState} from 'react';
+import IProduct from '../assets/models/IProduct';
 
 
-export const UseGetProduct = (id) => {
-    const [product, setProduct] = useState({})
+export const UseGetProduct = (id:string) => {
+    const [product, setProduct] = useState<IProduct|null>(null)
 
     useEffect(() => {
         const fetchData = async () => {

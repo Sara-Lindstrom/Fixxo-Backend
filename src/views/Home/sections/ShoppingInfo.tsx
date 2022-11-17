@@ -12,7 +12,7 @@ const ShoppingInfo = () => {
             <div className="info-box">
                 <div className="info">
                     <p>Track Your Order</p>
-                    <NavLink className="get-started">Get&nbsp;Started&nbsp;{'>'}</NavLink>                
+                    <NavLink to={""} className="get-started">Get&nbsp;Started&nbsp;{'>'}</NavLink>                
                 </div>
                 <img src={placeholderImg} alt="track your order"/>
             </div>
@@ -21,7 +21,7 @@ const ShoppingInfo = () => {
             <div className="info-box">
                 <div className="info">
                     <p>Make a Return</p>
-                    <NavLink className="get-started">Get&nbsp;Started&nbsp;{'>'}</NavLink>                
+                    <NavLink to={""} className="get-started">Get&nbsp;Started&nbsp;{'>'}</NavLink>                
                 </div>
                 <img src={placeholderImg} alt="make a return"/>
             </div>            
@@ -30,7 +30,7 @@ const ShoppingInfo = () => {
             <div className="info-box">
                 <div className="info">
                     <p>Request a Price Adjustment</p>
-                    <NavLink className="get-started">Get&nbsp;Started&nbsp;{'>'}</NavLink>                
+                    <NavLink to={""} className="get-started">Get&nbsp;Started&nbsp;{'>'}</NavLink>                
                 </div>
                 <img src={placeholderImg} alt="request a price adjustment"/>
             </div>    

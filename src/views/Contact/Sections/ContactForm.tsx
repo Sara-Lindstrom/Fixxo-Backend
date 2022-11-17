@@ -66,13 +66,19 @@ const ContactForm = () => {
     }
     
     // handle change for writing out inputs
-    const handleChange = (e) => {
-        const {id, value} = e.target
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {id, value} = e.currentTarget
+        setContactForm ({...contactForm, [id]: value})
+    }  
+
+    // handle change for writing out textArea
+    const handleChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const {id, value} = e.currentTarget
         setContactForm ({...contactForm, [id]: value})
     }  
     
     // validate if input is error free
-    const ValidateOnSubmit = async (e) => {
+    const ValidateOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         let validName = ValidateName();
         let validEmail = ValidateEmail();
         let validComment =  ValidateComment();
@@ -142,7 +148,7 @@ const ContactForm = () => {
                 <div className="error-message">{emailError}</div>
             </div>
             <div className="comment">
-                <textarea className={`${commentError === "" ? "" : "error"}`} id="comment" placeholder='comment' value={contactForm.comment} onKeyUp={ValidateComment} onChange={handleChange}></textarea>
+                <textarea className={`${commentError === "" ? "" : "error"}`} id="comment" placeholder='comment' value={contactForm.comment} onKeyUp={ValidateComment} onChange={handleChangeTextArea}></textarea>
                 <div className="error-message">{commentError}</div>
             </div>
             <div className='submit'>

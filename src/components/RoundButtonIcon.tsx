@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RoundButtonIcon = ({icon}) => {
+const RoundButtonIcon = (icon:string) => {
     return (
       <button className="round-button">
           <i className={icon}></i>

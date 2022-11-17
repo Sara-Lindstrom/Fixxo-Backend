@@ -10,7 +10,7 @@ const Contacts = () => {
     <div className='footer-wrapper'>
       <div className='wrapper'>
         <Navigationbar/>
-        <BreadCrumb currentPage="Contacts"/>
+        <BreadCrumb currentPage="Contacts" advertising={""}/>
         <Map/>
         <ContactForm/>
       </div>
