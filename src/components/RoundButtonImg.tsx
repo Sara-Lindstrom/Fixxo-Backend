@@ -1,9 +1,9 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import IRoundButtonIcon from '../assets/models/IRoundButton'
+import IRoundButtonImage from '../assets/models/IRoundButtonImage'
 
 
-const RoundButtonImg = (props: IRoundButtonIcon) => {
+const RoundButtonImg = (props: IRoundButtonImage) => {
 
 
   return (

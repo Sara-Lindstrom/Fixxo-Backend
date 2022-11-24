@@ -1,9 +1,12 @@
 import React from 'react'
+import IRoundButtonIcon from '../assets/models/IRounButtonIcon'
 
-const RoundButtonIcon = (icon:string) => {
+
+
+const RoundButtonIcon= (props:IRoundButtonIcon) => {
     return (
       <button className="round-button">
-          <i className={icon}></i>
+          <i className={props.icon}></i>
       </button>
     )
   }

@@ -10,6 +10,7 @@ import Products from './views/Products';
 import Search from './views/inaktive/Search';
 import Share from './views/inaktive/Share';
 import Whishlist from './views/inaktive/Whishlist';
+import Admin from './views/Admin/Admin';
 import { ShoppingCartProvider } from './components/shoppingcart/ShoppingCartContext';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/whishlist" element={<Whishlist/>}/>
 
           <Route path="*" element={<NotFound/>}/>
+          <Route path="/admin" element={<Admin/>}/>
         </Routes>
       </ShoppingCartProvider>
     </BrowserRouter>

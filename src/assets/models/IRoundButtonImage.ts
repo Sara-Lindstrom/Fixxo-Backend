@@ -1,4 +1,4 @@
-export default interface IRoundButton {
+export default interface IRoundButtonImage {
     link: string;
     image?:string;
     onClickEvent?:()=>void;

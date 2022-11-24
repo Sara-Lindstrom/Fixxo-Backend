@@ -1,6 +1,6 @@
 import { createContext , useContext , useState } from "react";
 import ShoppingCart from "./ShoppingCart";
-import IShoppingCartProviderProps from "../../assets/models/useShoppingContextModels/IShoppingCartProviderProps"
+import IProviderProps from "../../assets/models/IProviderProps"
 import ICartItem from "../../assets/models/useShoppingContextModels/ICartItem";
 import IProduct from "../../assets/models/IProduct";
 import IShoppingCartProviderReturn from "../../assets/models/useShoppingContextModels/IShoppingCartProviderReturn";
@@ -11,7 +11,7 @@ export const UseShoppingCart = () => {
     return useContext (ShoppingCartContext)
 }
 
-export const ShoppingCartProvider = ({children}: IShoppingCartProviderProps) => {
+export const ShoppingCartProvider = ({children}: IProviderProps) => {
 
     const [cartItem, setCartItem] = useState<ICartItem[]>([])
 
