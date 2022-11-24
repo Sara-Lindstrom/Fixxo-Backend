@@ -3,6 +3,7 @@ import { useState, useContext, createContext } from 'react'
 import IProviderProps from '../../assets/models/IProviderProps'
 import IProduct from '../../assets/models/IProduct'
 import IProductContext from '../../assets/models/AdminModels/IProductContext'
+import IAddedProduct from '../../assets/models/AdminModels/IAddedProduct'
 
 // access
 export const ProductContext = createContext<IProductContext | null>(null)
@@ -11,7 +12,7 @@ export const UseUserContext = () => {
 return useContext (ProductContext)
 }
 
-const defaultProduct = {
+const defaultProduct:IProduct = {
     articleNumber: "",
     name: "",
     description: "",
@@ -21,10 +22,19 @@ const defaultProduct = {
     imageName: ""
 }
 
+const defaultAddedProduct:IAddedProduct = {
+    name: "",
+    description: "",
+    category: "",
+    price: 0,
+    imageName: ""
+}
+
 // context functions
 const ProductContextProvider = ({children}:IProviderProps) => {
 
     // variables and Hooks
+    const [addedProduct, setAddedProduct] = useState<IAddedProduct>(defaultAddedProduct)
     const [editProduct, setEditProduct] = useState<IProduct>(defaultProduct)
     const [editableProducts, setEditableProducts] = useState<IProduct[]|[]>([])
 
@@ -39,7 +49,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
             headers: {
                 'Content-Type': 'application/json'
             }, 
-            body: JSON.stringify(editProduct)           
+            body: JSON.stringify(addedProduct)           
         })
 
         if(result.status === 201){
@@ -107,7 +117,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
   // returning values of functions
   return (
-    <ProductContext.Provider value={{editProduct, setEditProduct, editableProducts, create, get, getAll, update, remove}}>
+    <ProductContext.Provider value={{editProduct, setEditProduct, addedProduct, setAddedProduct, editableProducts, create, get, getAll, update, remove}}>
         {children}
     </ProductContext.Provider>
   )

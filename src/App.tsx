@@ -12,26 +12,29 @@ import Share from './views/inaktive/Share';
 import Whishlist from './views/inaktive/Whishlist';
 import Admin from './views/Admin/Admin';
 import { ShoppingCartProvider } from './components/shoppingcart/ShoppingCartContext';
+import ProductContextProvider from './components/Admin/ProductContext';
 
 function App() {
 
   return (
     <BrowserRouter>
       <ShoppingCartProvider>
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/contacts" element={<Contacts/>}/>
-          <Route path="/product/id/:id" element={<ProductSpec/>}/>
-          
-          <Route path="/categories" element={<Categories/>}/>
-          <Route path="/products" element={<Products/>}/>
-          <Route path="/search" element={<Search/>}/>
-          <Route path="/share" element={<Share/>}/>
-          <Route path="/whishlist" element={<Whishlist/>}/>
+        <ProductContextProvider>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/contacts" element={<Contacts/>}/>
+            <Route path="/product/id/:id" element={<ProductSpec/>}/>
+            
+            <Route path="/categories" element={<Categories/>}/>
+            <Route path="/products" element={<Products/>}/>
+            <Route path="/search" element={<Search/>}/>
+            <Route path="/share" element={<Share/>}/>
+            <Route path="/whishlist" element={<Whishlist/>}/>
 
-          <Route path="*" element={<NotFound/>}/>
-          <Route path="/admin" element={<Admin/>}/>
-        </Routes>
+            <Route path="*" element={<NotFound/>}/>
+            <Route path="/admin" element={<Admin/>}/>
+          </Routes>          
+        </ProductContextProvider>
       </ShoppingCartProvider>
     </BrowserRouter>
   );
