@@ -3,29 +3,41 @@ import { ProductContext } from '../../../components/Admin/ProductContext'
 import IProductContext from '../../../assets/models/AdminModels/IProductContext'
 import IAddedProduct from '../../../assets/models/AdminModels/IAddedProduct'
 import INewProduct from '../../../assets/models/AdminModels/INewProduct'
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css';
 
+
+// variables
+const defaultCategory:string = 'Category'
 
 const defaultAddedProduct:IAddedProduct = {
     name: "",
     description: "",
-    category: "",
+    category: defaultCategory,
     price: 0,
     imageName: ""
 }
 
+const categoryDropdownOptions = [
+    'Tops','Pants','Dresses','Shoes','Accessories'
+]
+
+
 
 const AddNewProduct = () => {
-    const {addedProduct, setAddedProduct, create} = useContext(ProductContext) as IProductContext
+    // Hooks
+    const {setAddedProduct, create} = useContext(ProductContext) as IProductContext
 
     const [newProduct, setNewProduct] = useState<INewProduct>(defaultAddedProduct)
     const [canSubmit, setCanSubmit] = useState (false)
-    const [categoryPlacehoderOption, setCategoryPlacehoderOption] = useState('Category')
 
     const [nameError, setNameError] = useState('');
     const [priceError, setPriceError] = useState('');
     const [categoryError, setCategoryError] = useState('');
     const [imageError, setImageError] = useState('');
     const [descriptionError, setDescriptionError] = useState('');
+
+    const [failedSubmit, setFailedSubmit] = useState (false);
 
 
     // validate name and set errors
@@ -64,24 +76,66 @@ const AddNewProduct = () => {
         return error === '' ? true : false;
     }
 
+    // validate category and set errors
+    const ValidateCategory = () => {
+        let error = '';
+
+        console.log("newProduct.category: " + newProduct.category)
+
+        if (newProduct.category === defaultCategory){
+            error = "You need to choose a Category"
+        }
+
+        setCategoryError(error);
+
+        return error === '' ? true : false;
+    }
+
+    // validate img and set errors
+    const ValidateImg = () => {
+        let error = '';
+        const regExName = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+
+        if (!regExName.test(newProduct.imageName)){
+            error = "You need a valid Url:adress to the Image"
+        }
+
+        setImageError(error);
+
+        return error === '' ? true : false;
+    }
+
+    // validate comment and set errors
+    const ValidateDescription = () => {
+        let error = '';
+
+        if (newProduct.description === ''){
+            error = "You need to enter a Description"
+        }
+        else if (newProduct.description.length < 10){
+            error = "Your Description need to be at least ten characters long"
+        }
+
+        setDescriptionError(error);
+
+        return error === '' ? true : false;
+    }
+
+
+
         
     // handle change for writing out inputs
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {id, value} = e.currentTarget
-        setNewProduct ({...newProduct, [id]: value})
+
+        setNewProduct ({...newProduct, [id]: value})  
     }  
 
-    const handleChangecategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const {id, value} = e.currentTarget
-        setNewProduct ({...newProduct, [id]: value})
-    }  
+    const changeCategoryOption = (option: any) => {
+        setNewProduct ({...newProduct, category: option.value})
 
-    const changeCategoryOption = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        let category:string = e.currentTarget.name
-        setCategoryPlacehoderOption(category)
-        return categoryPlacehoderOption
-      } 
+        ValidateCategory()
+    } 
 
     // handle change for writing out textArea
     const handleChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -89,9 +143,53 @@ const AddNewProduct = () => {
         setNewProduct ({...newProduct, [id]: value})
     }  
 
+    // validate if input is error free
+    const ValidateOnSubmit = async (e: React.FormEvent) => {
+        let validName = ValidateName();
+        let validPrice = ValidatePrice();
+        let validCategory =  ValidateCategory();
+        let validImg = ValidateImg();
+        let validDescription =  ValidateDescription();
+
+        setFailedSubmit (false)
+        
+        e.preventDefault()
+
+        if(validName === true && validPrice === true && validCategory === true && validImg === true && validDescription === true){
+
+            // reset and commit product
+            setAddedProduct(newProduct)
+
+            setNewProduct (defaultAddedProduct)
+
+            setNameError('');
+            setPriceError('');
+            setCategoryError('');
+            setImageError('');
+            setDescriptionError('');
+
+            create(e)
+
+            // commmit to api return message
+            // if (create(e)) {
+            //     setCanSubmit (true)
+            //     setFailedSubmit (false)
+            // }
+            // else {
+            //     setCanSubmit (false)
+            //     setFailedSubmit (true)
+            // }
+
+        }
+
+        else{
+            setCanSubmit (false)
+        }
+    };
+
 
   return (
-    <form onSubmit={create} noValidate className='new-product-form'>
+    <form onSubmit={ValidateOnSubmit} noValidate className='new-product-form container'>
         <div className='new-product-title'>
             <h2>Add New Product</h2>    
         </div>
@@ -100,39 +198,32 @@ const AddNewProduct = () => {
             <input className={`${nameError === "" ? "" : "error"}`} value={newProduct.name} id="name" type="text" placeholder='Product Name' onKeyUp={ValidateName} onChange={handleChange}/>
             <div className="error-message">{nameError}</div>
         </div>
+
         <div className='new-product-price'>
             <input className={`${priceError === "" ? "" : "error"}`} value={newProduct.price} id="price" type="number" placeholder='Price' onKeyUp={ValidatePrice} onChange={handleChange}/>
             <div className="error-message">{priceError}</div>
         </div>
+
         <div className='new-product-category'>
-        <button className="dropdown-toggle color-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false" >{categoryPlacehoderOption}</button>
-                <ul className="dropdown-menu">
-                  <li key="Tops"><button className="dropdown-item" onClick={changeCategoryOption} name="Tops">Tops</button></li>
-                  <li key="Pants"><button className="dropdown-item" onClick={changeCategoryOption} name="Pants">Pants</button></li>
-                  <li key="Dresses"><button className="dropdown-item" onClick={changeCategoryOption} name="Dresses">Dresses</button></li>
-                  <li key="Shoes"><button className="dropdown-item" onClick={changeCategoryOption} name="Shoes">Shoes</button></li>
-                  <li key="Accessories"><button className="dropdown-item" onClick={changeCategoryOption} name="Accessories">Accessories</button></li>
-                </ul>
+            <Dropdown options={categoryDropdownOptions} onChange={(option) => changeCategoryOption(option) } value={newProduct.category} placeholder="Category"/>
             <div className="error-message">{categoryError}</div>
         </div>
+
         <div>
-            <input className={`${imageError === "" ? "" : "error"}`} value={newProduct.imageName} type="text" placeholder='Image Link' onChange={handleChange} />
+            <input className={`${imageError === "" ? "" : "error"}`} value={newProduct.imageName} id="imageName" type="text" placeholder='Image Link' onChange={handleChange}  onKeyUp={ValidateImg}/>
             <div className="error-message">{imageError}</div>
+            <img src={newProduct.imageName} alt={newProduct.name}/>
         </div>
+
         <div>
-            <input className={`${descriptionError === "" ? "" : "error"}`} value={newProduct.description}  type="textarea" placeholder='Description' onChange={handleChange}/>
+            <textarea className={`${descriptionError === "" ? "" : "error"}`} value={newProduct.description} id="description" placeholder='Description' onChange={handleChangeTextArea} onKeyUp={ValidateDescription}/>
             <div className="error-message">{descriptionError}</div>
         </div>
+
         <div className='new-product-submit'>
             <button type="submit" className="button theme-button">Add New Product</button>
         </div>
     </form>
-
-    // name: onChange={(e) => setAddedProduct?.({...addedProduct, name:e.target.value})} 
-    // price: onChange={(e) => setAddedProduct?.({...addedProduct, price:e.target.valueAsNumber})} 
-    // category: onChange={(e) => setAddedProduct?.({...addedProduct, category:e.target.value})}
-    // imageName: onChange={(e) => setAddedProduct?.({...addedProduct, imageName:e.target.value})}
-    // description: onChange={(e) => setAddedProduct?.({...addedProduct, description:e.target.value})}
   )
 }
 

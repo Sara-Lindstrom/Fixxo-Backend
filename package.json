@@ -13,6 +13,7 @@
     "@typescript-eslint/parser": "^5.43.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropdown": "^1.11.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "typescript": "^4.8.4",
@@ -30,7 +31,9 @@
       "react-app/jest"
     ],
     "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"]
+    "plugins": [
+      "@typescript-eslint"
+    ]
   },
   "browserslist": {
     "production": [
