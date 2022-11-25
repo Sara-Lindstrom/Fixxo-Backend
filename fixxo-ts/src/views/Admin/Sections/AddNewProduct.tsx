@@ -80,8 +80,6 @@ const AddNewProduct = () => {
     const ValidateCategory = () => {
         let error = '';
 
-        console.log("newProduct.category: " + newProduct.category)
-
         if (newProduct.category === defaultCategory){
             error = "You need to choose a Category"
         }

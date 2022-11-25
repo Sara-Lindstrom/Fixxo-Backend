@@ -38,7 +38,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
     const [editProduct, setEditProduct] = useState<IProduct>(defaultProduct)
     const [editableProducts, setEditableProducts] = useState<IProduct[]|[]>([])
 
-    const baseUrl:string = ""
+    const baseUrl:string = 'http://localhost:5000/api/products'
 
     // functions
     const create = async (e:React.FormEvent) =>{
