@@ -7,6 +7,7 @@ export default interface IProductContext {
     setEditProduct : React.Dispatch<React.SetStateAction<IProduct>>
     editableProducts: IProduct[]
     allEditableItems:ICartItem[]
+    submitted:Boolean|null
 
     create: (newProduct:INewProduct, e: React.FormEvent) => void
     get: (id:number) => void

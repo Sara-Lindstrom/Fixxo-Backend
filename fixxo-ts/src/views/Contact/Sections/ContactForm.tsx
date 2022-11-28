@@ -16,7 +16,7 @@ const ContactForm = () => {
     // validate name and set errors
     const ValidateName = () => {
         let error = '';
-        const regExName = /^[a-zA-ZäöåÄÖÅ]+$/;
+        const regExName = /^[a-zA-ZäöåÄÖÅ ]+$/;
 
         if (contactForm.name === ''){
             error = "You need to enter a name"

@@ -3,7 +3,6 @@ import { useState, useContext, createContext } from 'react'
 import IProviderProps from '../../assets/models/IProviderProps'
 import IProduct from '../../assets/models/IProduct'
 import IProductContext from '../../assets/models/AdminModels/IProductContext'
-import IAddedProduct from '../../assets/models/AdminModels/IAddedProduct'
 import ICartItem from '../../assets/models/useShoppingContextModels/ICartItem'
 import INewProduct from '../../assets/models/AdminModels/INewProduct'
 
@@ -32,12 +31,15 @@ const ProductContextProvider = ({children}:IProviderProps) => {
     const [editProduct, setEditProduct] = useState<IProduct>(defaultProduct)
     const [editableProducts, setEditableProducts] = useState<IProduct[]>([])
     const [allEditableItems, setAllEditableItems] = useState<ICartItem[]>([])
+    const [submitted, setSubmitted] = useState<Boolean|null>(null)
 
     const baseUrl:string = 'http://localhost:5000/api/products'
 
     // functions
+    // create
     const create = async (newProduct:INewProduct, e: React.FormEvent) => {
         e.preventDefault()
+        // let submitted:Boolean = false
 
         const result = await fetch(`${baseUrl}` ,{
             method:'post',
@@ -49,13 +51,15 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
         if(result.status === 201){
             setEditProduct(defaultProduct)
-
+            setSubmitted(true)
         }
         else {
             console.log('error' + result.status)
+            setSubmitted(false)
         }
     }
 
+    // get
     const get = async (id:number) => {
         const result = await fetch (`${baseUrl}/${id}`)
 
@@ -67,6 +71,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
         }
     }
 
+    // get all
     const getAll = async () => {
         const result = await fetch (`${baseUrl}`)
 
@@ -89,6 +94,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
     }
 
+    // uppdate
     const update = async (id:number, e:React.FormEvent) => {
         e.preventDefault()
 
@@ -108,6 +114,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
         }
     }
 
+    // remove
     const remove = async (id:number) => {
         
         const result = await fetch (`${baseUrl}/${id}`, {
@@ -124,7 +131,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
   // returning values of functions
   return (
-    <ProductContext.Provider value={{editProduct, setEditProduct, editableProducts, allEditableItems, create, get, getAll, update, remove}}>
+    <ProductContext.Provider value={{editProduct, setEditProduct, editableProducts, allEditableItems, create, get, getAll, update, remove, submitted}}>
         {children}
     </ProductContext.Provider>
   )
