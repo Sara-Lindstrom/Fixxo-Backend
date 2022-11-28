@@ -4,6 +4,8 @@ import IProviderProps from '../../assets/models/IProviderProps'
 import IProduct from '../../assets/models/IProduct'
 import IProductContext from '../../assets/models/AdminModels/IProductContext'
 import IAddedProduct from '../../assets/models/AdminModels/IAddedProduct'
+import ICartItem from '../../assets/models/useShoppingContextModels/ICartItem'
+import INewProduct from '../../assets/models/AdminModels/INewProduct'
 
 // access
 export const ProductContext = createContext<IProductContext | null>(null)
@@ -22,26 +24,19 @@ const defaultProduct:IProduct = {
     imageName: ""
 }
 
-const defaultAddedProduct:IAddedProduct = {
-    name: "",
-    description: "",
-    category: "",
-    price: 0,
-    imageName: ""
-}
 
 // context functions
 const ProductContextProvider = ({children}:IProviderProps) => {
 
     // variables and Hooks
-    const [addedProduct, setAddedProduct] = useState<IAddedProduct>(defaultAddedProduct)
     const [editProduct, setEditProduct] = useState<IProduct>(defaultProduct)
-    const [editableProducts, setEditableProducts] = useState<IProduct[]|[]>([])
+    const [editableProducts, setEditableProducts] = useState<IProduct[]>([])
+    const [allEditableItems, setAllEditableItems] = useState<ICartItem[]>([])
 
     const baseUrl:string = 'http://localhost:5000/api/products'
 
     // functions
-    const create = async (e:React.FormEvent) =>{
+    const create = async (newProduct:INewProduct, e: React.FormEvent) => {
         e.preventDefault()
 
         const result = await fetch(`${baseUrl}` ,{
@@ -49,11 +44,12 @@ const ProductContextProvider = ({children}:IProviderProps) => {
             headers: {
                 'Content-Type': 'application/json'
             }, 
-            body: JSON.stringify(addedProduct)           
+            body: JSON.stringify(newProduct)           
         })
 
         if(result.status === 201){
             setEditProduct(defaultProduct)
+
         }
         else {
             console.log('error' + result.status)
@@ -76,10 +72,21 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
         if (result.status===200){
             setEditableProducts(await result.json())
+
+            let cartItems = editableProducts.map(p => {
+                let cartitem: ICartItem = {
+                    quantity:0,
+                    product:p
+                }
+                return cartitem;
+            })
+    
+            setAllEditableItems(cartItems)
         }
         else{
             console.log('error' + result.status)
         }
+
     }
 
     const update = async (id:number, e:React.FormEvent) => {
@@ -117,7 +124,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
   // returning values of functions
   return (
-    <ProductContext.Provider value={{editProduct, setEditProduct, addedProduct, setAddedProduct, editableProducts, create, get, getAll, update, remove}}>
+    <ProductContext.Provider value={{editProduct, setEditProduct, editableProducts, allEditableItems, create, get, getAll, update, remove}}>
         {children}
     </ProductContext.Provider>
   )

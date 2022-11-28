@@ -20,7 +20,6 @@
 @import "./homeview/companyInformation";
 
 // CONTACT
-
 @import "./contactview/map";
 @import "./contactview/contactForm";
 
@@ -28,3 +27,6 @@
 @import "./productspecification/productDetails";
 @import "./productspecification/productInformation";
 @import "./productspecification/relatedProducts";
+
+// ADMIN
+@import "./adminview/addNewProduct";
