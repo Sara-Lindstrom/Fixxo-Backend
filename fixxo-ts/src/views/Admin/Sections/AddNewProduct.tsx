@@ -1,18 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { ProductContext } from '../../../components/Admin/ProductContext'
 import IProductContext from '../../../assets/models/AdminModels/IProductContext'
-import IAddedProduct from '../../../assets/models/AdminModels/IAddedProduct'
 import INewProduct from '../../../assets/models/AdminModels/INewProduct'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css';
-import ICartItem from '../../../assets/models/useShoppingContextModels/ICartItem'
 import AddedProductMessage from './AddedProductMessage'
 
 
 // variables
 const defaultCategory:string = 'Category'
 
-const defaultAddedProduct:IAddedProduct = {
+const defaultAddedProduct:INewProduct = {
     name: "",
     description: "",
     category: defaultCategory,
@@ -26,20 +24,15 @@ const categoryDropdownOptions = [
 
 const AddNewProduct:React.FC = () => {
     // Hooks
-    const {create, getAll, submitted} = useContext(ProductContext) as IProductContext
+    const {create} = useContext(ProductContext) as IProductContext
 
     const [newProduct, setNewProduct] = useState<INewProduct>(defaultAddedProduct)
-    const [canSubmit, setCanSubmit] = useState (false)
 
     const [nameError, setNameError] = useState('');
     const [priceError, setPriceError] = useState('');
     const [categoryError, setCategoryError] = useState('');
     const [imageError, setImageError] = useState('');
     const [descriptionError, setDescriptionError] = useState('');
-
-    const [getAllEdictableProducts, setGetAllEdictableProducts]  = useState<ICartItem[] |null> (null)
-
-    const [failedSubmit, setFailedSubmit] = useState (false);
 
 
     // validate name and set errors
@@ -148,8 +141,6 @@ const AddNewProduct:React.FC = () => {
         let validCategory =  ValidateCategory();
         let validImg = ValidateImg();
         let validDescription =  ValidateDescription();
-
-        setFailedSubmit (false)
         
         e.preventDefault()
 
@@ -166,10 +157,6 @@ const AddNewProduct:React.FC = () => {
             create(newProduct, e)
             setNewProduct (defaultAddedProduct)
 
-        }
-
-        else{
-            setCanSubmit (false)
         }
     };
 

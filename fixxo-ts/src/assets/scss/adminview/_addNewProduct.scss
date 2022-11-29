@@ -66,11 +66,18 @@
 
     .new-product-image{
         width: 100%;
-        background-color: $color-gray-20;
 
         @include md {
             grid-column: 1;
             grid-row: 2 / span 5;
+            background-color: $color-gray-20;
+        }
+        .image-show{
+            display: none;
+            
+            @include md {
+                display:initial;
+            }
         }
 
     }

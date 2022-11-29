@@ -1,4 +1,4 @@
-export default interface IAddedProduct {
+export default interface INewProduct {
     name: string
     description: string
     category: string

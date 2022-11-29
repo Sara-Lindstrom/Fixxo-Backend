@@ -1,0 +1,48 @@
+.pop-up-background{
+    position: fixed;
+    backdrop-filter: blur(8px);
+    top: 0;
+    left: 0;
+    height: 100vw;
+    width: 100vh;
+    z-index:5;
+}
+
+.pop-up-background-bottom{
+    position: fixed;
+    backdrop-filter: blur(8px);
+    bottom: 0;
+    left: 0;
+    height: 100vw;
+    width: 100vh;
+    z-index:5;
+}
+
+.pop-up{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 50%;
+    left:50%;
+    transform: translate(-50% , -50%);
+    width:100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.986);
+    z-index: 10;
+
+    @include md {
+        height: fit-content;
+    }
+
+    .pop-up-inner{
+
+        .edit-exit{
+            margin: 2rem auto;
+        }
+
+        .update-title{
+            margin-bottom: 0;
+        }
+    }
+}

@@ -13,5 +13,7 @@ app.use(bodyParser.json())
 // controller for adress
 const productsController = require('./controllers/productsController')
 app.use('/api/products', productsController) 
+// app.use('/api/products/take', productsController) 
 
 app.listen(port, () => console.log(`webapi is running on http://localhost:${port}`))
+

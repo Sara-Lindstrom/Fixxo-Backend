@@ -14,7 +14,7 @@ return useContext (ProductContext)
 }
 
 const defaultProduct:IProduct = {
-    articleNumber: "",
+    articleNumber: 0,
     name: "",
     description: "",
     category: "",
@@ -30,8 +30,12 @@ const ProductContextProvider = ({children}:IProviderProps) => {
     // variables and Hooks
     const [editProduct, setEditProduct] = useState<IProduct>(defaultProduct)
     const [editableProducts, setEditableProducts] = useState<IProduct[]>([])
+    const [chosenproduct, setChosenproduct] = useState<IProduct>(defaultProduct)
+    const [amountItems, setAmountItems] = useState<IProduct[]>([])
     const [allEditableItems, setAllEditableItems] = useState<ICartItem[]>([])
+    const [amountProducts, setAmountProducts] = useState<ICartItem[]>([])
     const [submitted, setSubmitted] = useState<Boolean|null>(null)
+    const [hasChanged, setHasChanged] = useState(false)
 
     const baseUrl:string = 'http://localhost:5000/api/products'
 
@@ -52,6 +56,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
         if(result.status === 201){
             setEditProduct(defaultProduct)
             setSubmitted(true)
+            setHasChanged(true)
         }
         else {
             console.log('error' + result.status)
@@ -64,21 +69,22 @@ const ProductContextProvider = ({children}:IProviderProps) => {
         const result = await fetch (`${baseUrl}/${id}`)
 
         if (result.status === 200){
-            setEditProduct(await result.json())
+            setChosenproduct(await result.json())
         }
         else{
             console.log("error" + result.status)
         }
     }
 
-    // get all
-    const getAll = async () => {
-        const result = await fetch (`${baseUrl}`)
+
+    // get amount
+    const getAmount = async (amount:number) => {
+        const result = await fetch (`${baseUrl}/take=${amount}`)
 
         if (result.status===200){
-            setEditableProducts(await result.json())
+            setAmountItems(await result.json())
 
-            let cartItems = editableProducts.map(p => {
+            let cartItems = amountItems.map(p => {
                 let cartitem: ICartItem = {
                     quantity:0,
                     product:p
@@ -86,12 +92,11 @@ const ProductContextProvider = ({children}:IProviderProps) => {
                 return cartitem;
             })
     
-            setAllEditableItems(cartItems)
+            setAmountProducts(cartItems)
         }
         else{
             console.log('error' + result.status)
         }
-
     }
 
     // uppdate
@@ -108,6 +113,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
         if (result.status === 200){
             setEditProduct(await result.json())
+            setHasChanged(true)
         }
         else{
             console.log('error' + result.status)           
@@ -123,6 +129,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
         if (result.status === 204){
             setEditProduct(defaultProduct)
+            setHasChanged(true)
         }
         else{
             console.log('error' + result.status)
@@ -131,7 +138,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
   // returning values of functions
   return (
-    <ProductContext.Provider value={{editProduct, setEditProduct, editableProducts, allEditableItems, create, get, getAll, update, remove, submitted}}>
+    <ProductContext.Provider value={{editProduct, setEditProduct, editableProducts, allEditableItems, chosenproduct, amountProducts, create, get, getAmount, update, remove, submitted, baseUrl, hasChanged, setHasChanged}}>
         {children}
     </ProductContext.Provider>
   )

@@ -13,7 +13,6 @@ const AddedProductMessage = () => {
         if(submitted!==null){
             setCanSubmit(submitted)
         }
-        console.log("woo")
     }, [submitted])
 
     return (

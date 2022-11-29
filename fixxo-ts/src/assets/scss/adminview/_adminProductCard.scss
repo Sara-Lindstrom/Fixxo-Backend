@@ -64,7 +64,9 @@
         }
 
         .admin-buttons{
-            margin: 1rem;
+            @include md {
+                margin: 1rem;
+            }
         }
     }
 }

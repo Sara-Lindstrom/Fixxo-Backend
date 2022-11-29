@@ -5,7 +5,12 @@ let products = require('../data/simulated_database')
 
 // middleware
 controller.param("articleNumber", (req,res,next, articleNumber)=>{
-    req.product = products.find(product => product.articleNumber == articleNumber)
+    res.product = products.find(product => product.articleNumber == articleNumber)
+    next()
+})
+
+controller.param("amount", (req, res, next, amount)=>{
+    res.productAmount = products.slice(0, amount);
     next()
 })
 
@@ -36,7 +41,7 @@ controller.route("/:articleNumber")
 // GET - get
 .get ((httpRequest, httpResponse) => {
     if (httpRequest != undefined){
-        httpResponse.status(200).json(httpRequest.product)
+        httpResponse.status(200).json(httpResponse.product)
     }
     else{
         httpResponse.status(404).json()
@@ -45,16 +50,23 @@ controller.route("/:articleNumber")
 .put ((httpRequest, httpResponse) => {
 
     if (httpRequest != undefined){
-        products.forEach(product => {
-            if(product.articleNumber == httpRequest.body.articleNumber){
-                product.name = httpRequest.body.name ? httpRequest.body.name : product.name
-                product.description = httpRequest.body.description ? httpRequest.body.description : product.description
-                product.category = httpRequest.body.category ? httpRequest.body.category : product.category
-                product.price = httpRequest.body.price ? httpRequest.body.price : product.price
-                product.imageName = httpRequest.body.imageName ? httpRequest.body.imageName : product.imageName
-            }
-        });
-        httpResponse.status(200).json(httpRequest.product)
+
+        httpResponse.product.name = httpRequest.body.name ? httpRequest.body.name : httpResponse.product.name
+        httpResponse.product.description = httpRequest.body.description ? httpRequest.body.description : httpResponse.product.description
+        httpResponse.product.category = httpRequest.body.category ? httpRequest.body.category : httpResponse.product.category
+        httpResponse.product.price = httpRequest.body.price ? httpRequest.body.price : httpResponse.product.price
+        httpResponse.product.imageName = httpRequest.body.imageName ? httpRequest.body.imageName : httpResponse.product.imageName
+
+        // products.forEach(product => {
+        //     if(product.articleNumber == httpRequest.body.articleNumber){
+        //         product.name = httpRequest.body.name ? httpRequest.body.name : product.name
+        //         product.description = httpRequest.body.description ? httpRequest.body.description : product.description
+        //         product.category = httpRequest.body.category ? httpRequest.body.category : product.category
+        //         product.price = httpRequest.body.price ? httpRequest.body.price : product.price
+        //         product.imageName = httpRequest.body.imageName ? httpRequest.body.imageName : product.imageName
+        //     }
+        // });
+        httpResponse.status(200).json(httpResponse.product)
     }
     else{
         httpResponse.status(404).json()
@@ -62,16 +74,27 @@ controller.route("/:articleNumber")
 })
 .delete ((httpRequest, httpResponse) => {
     if (httpRequest != undefined){
-
-        console.log('hello 2')
-
         products= products.filter(product => product.articleNumber !== httpRequest.product.articleNumber)
-        httpResponse.status (204).json
+
+        httpResponse.status(204).json()
     }
     else{
         httpResponse.status(404).json()
     }
 })
 
+// http://localhost:5000/api/products/take/amount
+controller.route("/take/:amount")
+// GET - get amount
+.get ((httpRequest, httpResponse) => {
+    if (httpRequest != undefined){
+        httpResponse.status(201).json(httpResponse.productAmount)
+    }
+    else {
+        httpResponse.status(404).json()
+    }
+    
+
+})
 
 module.exports = controller

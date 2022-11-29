@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { currencyFormatter } from '../../../assets/utilities/currencyFormatter';
+import PopUpUpdateProduct from './PopUpUpdateProduct';
 import ICartItem from '../../../assets/models/useShoppingContextModels/ICartItem';
+import { ProductContext } from '../../../components/Admin/ProductContext';
+import IProductContext from '../../../assets/models/AdminModels/IProductContext';
 
-const ProductCard:React.FC<{product:ICartItem}> = ({product}) => {
-    
+const AdminProductCard:React.FC<{product:ICartItem}> = ({product}) => {
+
+  const {remove} = useContext(ProductContext) as IProductContext
+
+  const [popUpShowBoolean, setPopUpShowBoolean] = useState<boolean>(false)
 
   return (
     // card core
@@ -20,11 +26,12 @@ const ProductCard:React.FC<{product:ICartItem}> = ({product}) => {
         </div> 
 
         <div className='delete-or-edit-buttons'>
-            <button className='round-button admin-buttons'><i className="fa-light fa-pen-to-square"></i></button>
-            <button className='round-button admin-buttons'><i className="fa-regular fa-trash"></i></button>
+            <button className='round-button admin-buttons' onClick={() => setPopUpShowBoolean(!popUpShowBoolean)}><i className="fa-light fa-pen-to-square"></i></button>
+              <PopUpUpdateProduct show={popUpShowBoolean} articleNumber={product.product.articleNumber}/>
+            <button className='round-button admin-buttons' onClick={()=>remove(product.product.articleNumber)}><i className="fa-regular fa-trash"></i></button>
         </div>
     </div>   
   )
 }
 
-export default ProductCard
+export default AdminProductCard

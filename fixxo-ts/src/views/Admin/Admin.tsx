@@ -6,6 +6,7 @@ import AddNewProduct from './Sections/AddNewProduct'
 import ShowAllProducts from './Sections/ShowAllProducts'
 
 const Admin = () => {
+  
   return (
     <div className='footer-wrapper'>
       <div className='wrapper'>
