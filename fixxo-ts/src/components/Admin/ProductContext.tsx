@@ -3,7 +3,6 @@ import { useState, useContext, createContext } from 'react'
 import IProviderProps from '../../assets/models/IProviderProps'
 import IProduct from '../../assets/models/IProduct'
 import IProductContext from '../../assets/models/AdminModels/IProductContext'
-import ICartItem from '../../assets/models/useShoppingContextModels/ICartItem'
 import INewProduct from '../../assets/models/AdminModels/INewProduct'
 
 // access
@@ -13,27 +12,21 @@ export const UseUserContext = () => {
 return useContext (ProductContext)
 }
 
-const defaultProduct:IProduct = {
-    articleNumber: 0,
-    name: "",
-    description: "",
-    category: "",
-    price: 0,
-    rating: 0,
-    imageName: ""
-}
-
-
 // context functions
 const ProductContextProvider = ({children}:IProviderProps) => {
 
+    const defaultProduct:IProduct = {
+        articleNumber: 0,
+        name: "",
+        description: "",
+        category: "",
+        price: 0,
+        rating: 0,
+        imageName: ""
+    } 
+
     // variables and Hooks
     const [editProduct, setEditProduct] = useState<IProduct>(defaultProduct)
-    const [editableProducts, setEditableProducts] = useState<IProduct[]>([])
-    const [chosenproduct, setChosenproduct] = useState<IProduct>(defaultProduct)
-    const [amountItems, setAmountItems] = useState<IProduct[]>([])
-    const [allEditableItems, setAllEditableItems] = useState<ICartItem[]>([])
-    const [amountProducts, setAmountProducts] = useState<ICartItem[]>([])
     const [submitted, setSubmitted] = useState<Boolean|null>(null)
     const [hasChanged, setHasChanged] = useState(false)
 
@@ -64,44 +57,10 @@ const ProductContextProvider = ({children}:IProviderProps) => {
         }
     }
 
-    // get
-    const get = async (id:number) => {
-        const result = await fetch (`${baseUrl}/${id}`)
-
-        if (result.status === 200){
-            setChosenproduct(await result.json())
-        }
-        else{
-            console.log("error" + result.status)
-        }
-    }
-
-
-    // get amount
-    const getAmount = async (amount:number) => {
-        const result = await fetch (`${baseUrl}/take=${amount}`)
-
-        if (result.status===200){
-            setAmountItems(await result.json())
-
-            let cartItems = amountItems.map(p => {
-                let cartitem: ICartItem = {
-                    quantity:0,
-                    product:p
-                }
-                return cartitem;
-            })
-    
-            setAmountProducts(cartItems)
-        }
-        else{
-            console.log('error' + result.status)
-        }
-    }
-
     // uppdate
     const update = async (id:number, e:React.FormEvent) => {
         e.preventDefault()
+        console.log(editProduct)
 
         const result = await fetch (`${baseUrl}/${id}`,{
             method:'put',
@@ -138,7 +97,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
   // returning values of functions
   return (
-    <ProductContext.Provider value={{editProduct, setEditProduct, editableProducts, allEditableItems, chosenproduct, amountProducts, create, get, getAmount, update, remove, submitted, baseUrl, hasChanged, setHasChanged}}>
+    <ProductContext.Provider value={{editProduct, setEditProduct, defaultProduct, create, update, remove, submitted, baseUrl, hasChanged, setHasChanged}}>
         {children}
     </ProductContext.Provider>
   )

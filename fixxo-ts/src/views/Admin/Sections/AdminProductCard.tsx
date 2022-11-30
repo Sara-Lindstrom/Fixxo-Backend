@@ -9,10 +9,10 @@ const AdminProductCard:React.FC<{product:ICartItem}> = ({product}) => {
 
   const {remove} = useContext(ProductContext) as IProductContext
 
-  const [popUpShowBoolean, setPopUpShowBoolean] = useState<boolean>(false)
-
+  const [show, setShow] = useState<Boolean>(false)
   return (
     // card core
+    
     <div className="admin-card container">
         <div className="admin-product-image">
             <img src={product.product.imageName} alt={product.product.name}/> 
@@ -26,8 +26,12 @@ const AdminProductCard:React.FC<{product:ICartItem}> = ({product}) => {
         </div> 
 
         <div className='delete-or-edit-buttons'>
-            <button className='round-button admin-buttons' onClick={() => setPopUpShowBoolean(!popUpShowBoolean)}><i className="fa-light fa-pen-to-square"></i></button>
-              <PopUpUpdateProduct show={popUpShowBoolean} articleNumber={product.product.articleNumber}/>
+            <button className='round-button admin-buttons' onClick={() => setShow(!show)}><i className="fa-light fa-pen-to-square"></i></button>
+            {
+              show &&
+              <PopUpUpdateProduct articleNumber={product.product.articleNumber} show={show} setShow={setShow}/>              
+            }
+
             <button className='round-button admin-buttons' onClick={()=>remove(product.product.articleNumber)}><i className="fa-regular fa-trash"></i></button>
         </div>
     </div>   

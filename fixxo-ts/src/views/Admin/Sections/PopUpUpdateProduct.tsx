@@ -1,42 +1,50 @@
-import React from 'react'
-import { useContext, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useContext, useState } from 'react'
 import INewProduct from '../../../assets/models/AdminModels/INewProduct';
 import IProductContext from '../../../assets/models/AdminModels/IProductContext';
 import { ProductContext } from '../../../components/Admin/ProductContext';
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css';
 import AddedProductMessage from './AddedProductMessage';
+import UseGetProduct from '../../../Hooks/UseGetProduct';
+import IProduct from '../../../assets/models/IProduct';
 
-const PopUpUpdateProduct:React.FC<{articleNumber:number, show:boolean}> = ({articleNumber, show}) => {
 
-    const {get, chosenproduct} = useContext(ProductContext) as IProductContext
-    
-    useEffect(() => {
-        if(show==true){
-        get(articleNumber)
-        }
-        
-    }, [show])
 
-    const defaultCategory:string = 'Category'
-    console.log(articleNumber)
+const PopUpUpdateProduct:React.FC<{articleNumber:number, show:Boolean, setShow:React.Dispatch<React.SetStateAction<Boolean>>}> = ({articleNumber, show, setShow}) => {
 
-    const defaultAddedProduct:INewProduct = {
+    const chosenproduct = UseGetProduct(articleNumber)
+
+    const defaultUpdateProduct:IProduct = {
+        articleNumber:chosenproduct.articleNumber,
         name: chosenproduct.name,
         description: chosenproduct.description,
         category: chosenproduct.category,
         price: chosenproduct.price,
-        imageName: chosenproduct.imageName
+        imageName: chosenproduct.imageName,
+        rating:0
     }
+    
+    useEffect(() => {
+        setUpdateProduct({
+            articleNumber:chosenproduct.articleNumber,
+            name: chosenproduct.name,
+            description: chosenproduct.description,
+            category: chosenproduct.category,
+            price: chosenproduct.price,
+            imageName: chosenproduct.imageName,
+            rating:0
+        })
+    }, [chosenproduct])
+    
+    const [updateProduct, setUpdateProduct] = useState<IProduct>(defaultUpdateProduct)
 
     const categoryDropdownOptions = [
-        'Tops','Pants','Dresses','Shoes','Accessories'
+        'Tops','Dresses','Asseccoaries','Jackets','Shirts','Hats','Child'
     ]
 
     // Hooks
-    const {create} = useContext(ProductContext) as IProductContext
-
-    const [UpdateProduct, setUpdateProduct] = useState<INewProduct>(defaultAddedProduct)
+    const {update, setEditProduct, editProduct} = useContext(ProductContext) as IProductContext
 
     const [nameError, setNameError] = useState('');
     const [priceError, setPriceError] = useState('');
@@ -50,13 +58,13 @@ const PopUpUpdateProduct:React.FC<{articleNumber:number, show:boolean}> = ({arti
         let error = '';
         const regExName = /^[a-zA-ZäöåÄÖÅ ]+$/;
 
-        if (UpdateProduct.name === ''){
+        if (updateProduct.name === ''){
             error = "You need to enter a name"
         }
-        else if (UpdateProduct.name.length < 2){
+        else if (updateProduct.name.length < 2){
             error ="Name must be at least two characters long"
         }
-        else if (!regExName.test(UpdateProduct.name)){
+        else if (!regExName.test(updateProduct.name)){
             error = "The name can only contain letters"
         }
 
@@ -69,10 +77,10 @@ const PopUpUpdateProduct:React.FC<{articleNumber:number, show:boolean}> = ({arti
     const ValidatePrice = () => {
         let error = '';
 
-        if (UpdateProduct.price == 0 ){
+        if (updateProduct.price == 0 ){
             error = "You need to enter a price"
         }
-        else if (UpdateProduct.price < 0){
+        else if (updateProduct.price < 0){
             error ="Price can not be negative"
         }
 
@@ -81,26 +89,13 @@ const PopUpUpdateProduct:React.FC<{articleNumber:number, show:boolean}> = ({arti
         return error === '' ? true : false;
     }
 
-    // validate category and set errors
-    const ValidateCategory = () => {
-        let error = '';
-
-        if (UpdateProduct.category === defaultCategory){
-            error = "Choose a Category"
-        }
-
-        setCategoryError(error);
-
-        return error === '' ? true : false;
-    }
-
     // validate img and set errors
     const ValidateImg = () => {
         let error = '';
-        const regExName = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+        const regExName = /^(?:(?:https?:)\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff]\.)+(?:[a-z\u00a1-\uffff]{2,}\.?))(?::\d{2,5})?(?:[/?#]\S*)?$/;
 
-        if (!regExName.test(UpdateProduct.imageName)){
-            error = "You need a valid Url:adress to the Image"
+        if (!regExName.test(updateProduct.imageName)){
+            error = "The Image Url is not valid"
         }
 
         setImageError(error);
@@ -112,10 +107,10 @@ const PopUpUpdateProduct:React.FC<{articleNumber:number, show:boolean}> = ({arti
     const ValidateDescription = () => {
         let error = '';
 
-        if (UpdateProduct.description === ''){
+        if (updateProduct.description === ''){
             error = "You need to enter a Description"
         }
-        else if (UpdateProduct.description.length < 10){
+        else if (updateProduct.description.length < 10){
             error = "Your Description must be at least ten characters long"
         }
 
@@ -128,96 +123,100 @@ const PopUpUpdateProduct:React.FC<{articleNumber:number, show:boolean}> = ({arti
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {id, value} = e.currentTarget
 
-        setUpdateProduct ({...UpdateProduct, [id]: value})  
+        // setUpdateProduct ({...updateProduct, [id]: value})  
+        setEditProduct (state => ({...state, [id]: value}))
     }  
 
     const changeCategoryOption = (option: any) => {
-        setUpdateProduct ({...UpdateProduct, category: option.value})
+        // setUpdateProduct ({...updateProduct, category: option.value})
+        setEditProduct (state => ({...state,  category: option.value}))
     } 
 
     // handle change for writing out textArea
     const handleChangeTextArea = async(e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const {id, value} = e.currentTarget
-        setUpdateProduct ({...UpdateProduct, [id]: value})
+        // setUpdateProduct ({...updateProduct, [id]: value})
+        setEditProduct (state => ({...state, [id]: value}))
     }  
 
     // validate if input is error free
     const ValidateOnSubmit = (e: React.FormEvent) => {
         let validName = ValidateName();
         let validPrice = ValidatePrice();
-        let validCategory =  ValidateCategory();
-        let validImg = ValidateImg();
+        // let validCategory =  ValidateCategory();
+        let validImg = ValidateImg(); 
         let validDescription =  ValidateDescription();
         
         e.preventDefault()
 
-        if(validName === true && validPrice === true && validCategory === true && validImg === true && validDescription === true){
+        if(validName === true && validPrice === true &&  validImg === true && validDescription === true){
 
             // reset and commit product
-
             setNameError('');
             setPriceError('');
             setCategoryError('');
             setImageError('');
             setDescriptionError('');
 
-            create(UpdateProduct, e)
-            setUpdateProduct (defaultAddedProduct)
+            setEditProduct(updateProduct)
+            update(articleNumber, e)
+            setShow(false)
 
         }
     };
 
   return (
     <>
-        <div  className={`${show === true ? "pop-up-background" : "d-none"}`}></div>
-        {
+        {console.log(updateProduct)}{
             show &&
+            <div  className="pop-up-container">
+                <div  className="pop-up-background"></div>
+                    <div className='pop-up container'>
+                        <div className='pop-up-inner'>
+                            <button className='round-button' onClick={()=> setShow(!show)}><i className="fa-regular fa-xmark"></i></button>
+                            <AddedProductMessage/>
+                            <form onSubmit={ValidateOnSubmit} noValidate className='new-product-form'>
 
-            <div className='pop-up container'>
-                <div className='pop-up-inner'>
-                    <button className='round-button' onClick={()=>show=false}><i className="fa-regular fa-xmark"></i></button>
-                    <AddedProductMessage/>
-                    <form onSubmit={ValidateOnSubmit} noValidate className='new-product-form'>
+                                <div className='new-product-title'>
+                                    <h2 className="admin-title">Update Product</h2>    
+                                </div>
 
-                        <div className='new-product-title'>
-                            <h2 className="admin-title">Update Product</h2>    
-                        </div>
+                                <div className='new-product-name'>
+                                    <input className={`${nameError === "" ? "input-padding" : "input-padding error"}`} value={editProduct.name} id="name" type="text" placeholder='Product Name' onKeyUp={ValidateName} onChange={handleChange}/>
+                                    <div className="error-message">{nameError}</div>
+                                </div>
 
-                        <div className='new-product-name'>
-                            <input className={`${nameError === "" ? "input-padding" : "input-padding error"}`} value={UpdateProduct.name} id="name" type="text" placeholder='Product Name' onKeyUp={ValidateName} onChange={handleChange}/>
-                            <div className="error-message">{nameError}</div>
-                        </div>
+                                <div className='new-product-price'>
+                                    <input className={`${priceError === "" ? "input-padding" : "input-padding error"}`} value={editProduct.price} id="price" type="number" placeholder='Price' onKeyUp={ValidatePrice} onChange={handleChange}/>
+                                    <div className="error-message">{priceError}</div>
+                                </div>
 
-                        <div className='new-product-price'>
-                            <input className={`${priceError === "" ? "input-padding" : "input-padding error"}`} value={UpdateProduct.price} id="price" type="number" placeholder='Price' onKeyUp={ValidatePrice} onChange={handleChange}/>
-                            <div className="error-message">{priceError}</div>
-                        </div>
+                                <div className='new-product-category'>
+                                    <Dropdown className={`${categoryError === "" ? "" : "error"}`} options={categoryDropdownOptions} onChange={(option) => changeCategoryOption(option)} value={editProduct.category} placeholder="Category"/>
+                                    <div className="error-message">{categoryError}</div>
+                                </div>
 
-                        <div className='new-product-category'>
-                            <Dropdown className={`${categoryError === "" ? "" : "error"}`} options={categoryDropdownOptions} onChange={(option) => changeCategoryOption(option)} value={UpdateProduct.category} placeholder="Category"/>
-                            <div className="error-message">{categoryError}</div>
-                        </div>
+                                <div className='new-product-image'>
+                                    <input className={`${imageError === "" ? "input-padding" : "input-padding error"}`} value={editProduct.imageName} id="imageName" type="text" placeholder='Image Link' onChange={handleChange}  onKeyUp={ValidateImg}/>
+                                    <div className="error-message">{imageError}</div>
+                                    <img className={`${updateProduct.imageName==="" ? "" : "image-show" }`} src={editProduct.imageName} alt={editProduct.name}/>
+                                </div>
 
-                        <div className='new-product-image'>
-                            <input className={`${imageError === "" ? "input-padding" : "input-padding error"}`} value={UpdateProduct.imageName} id="imageName" type="text" placeholder='Image Link' onChange={handleChange}  onKeyUp={ValidateImg}/>
-                            <div className="error-message">{imageError}</div>
-                            <img className={`${UpdateProduct.imageName==="" ? "" : "image-show" }`} src={UpdateProduct.imageName} alt={UpdateProduct.name}/>
-                        </div>
+                                <div className='new-product-description'>
+                                    <textarea className={`${descriptionError === "" ? "input-padding" : "input-padding error"}`} value={editProduct.description} id="description" placeholder='Description' onChange={handleChangeTextArea} onKeyUp={ValidateDescription}/>
+                                    <div className="error-message">{descriptionError}</div>
+                                </div>
 
-                        <div className='new-product-description'>
-                            <textarea className={`${descriptionError === "" ? "input-padding" : "input-padding error"}`} value={UpdateProduct.description} id="description" placeholder='Description' onChange={handleChangeTextArea} onKeyUp={ValidateDescription}/>
-                            <div className="error-message">{descriptionError}</div>
-                        </div>
-
-                        <div className='new-product-submit'>
-                            <button type="submit" className="button theme-button">Add New Product</button>
-                        </div>
-                    </form>
-                </div> 
-            </div>
+                                <div className='new-product-submit'>
+                                    <button type="submit" className="button theme-button">Add New Product</button>
+                                </div>
+                            </form>
+                        </div> 
+                    </div>
+                <div  className="pop-up-background"></div>
+            </div> 
         }
-        <div  className={`${show === true ? "pop-up-background-bottom" : "d-none"}`}></div>
-    </> 
+    </>
   )
 }
 

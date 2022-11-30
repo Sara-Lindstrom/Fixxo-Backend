@@ -11,7 +11,8 @@ export const UseGetAll = () => {
     const [editableProducts, setEditableProducts] = useState<IProduct[]>([])
 
     useEffect(() => {
-    // get all
+        
+        // get all
         const getAll = async () => {
             const result = await fetch (`${baseUrl}`)
 

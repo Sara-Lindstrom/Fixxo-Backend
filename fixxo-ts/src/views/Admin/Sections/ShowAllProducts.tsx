@@ -7,12 +7,12 @@ const ShowAllProducts:React.FC= () => {
   
     if(allProducts === null || allProducts.length === 0){
         return <></>
-      }
+    }
     
   return (
     <div className="container">
         <h4 className="headline">All Products</h4>
-        <div className="">
+        <div>
 
           {allProducts.map(item => <AdminProductCard product={item} key={item.product.articleNumber}/>)}
 

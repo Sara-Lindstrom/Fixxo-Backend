@@ -1,12 +1,12 @@
 import React from 'react'
 import ProductGrid from '../../../components/ProductGrid'
-import UseGetFeaturedProducts from '../../../Hooks/UseGetFeaturedProducts'
+import UseGetFeatured from '../../../Hooks/UseGetFeatured'
 
 
 const RelatedProducts = () => {
 
-  const feauredProduct2 = UseGetFeaturedProducts(2)
-  const feauredProduct4 = UseGetFeaturedProducts(4)
+  const feauredProduct2 = UseGetFeatured(2)
+  const feauredProduct4 = UseGetFeatured(4)
 
   return (
     <div className='container carousel-box'>

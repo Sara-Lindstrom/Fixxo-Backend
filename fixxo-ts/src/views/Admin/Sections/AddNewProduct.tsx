@@ -19,7 +19,7 @@ const defaultAddedProduct:INewProduct = {
 }
 
 const categoryDropdownOptions = [
-    'Tops','Pants','Dresses','Shoes','Accessories'
+    'Tops','Dresses','Asseccoaries','Jackets','Shirts','Hats','Child'
 ]
 
 const AddNewProduct:React.FC = () => {
@@ -87,10 +87,10 @@ const AddNewProduct:React.FC = () => {
     // validate img and set errors
     const ValidateImg = () => {
         let error = '';
-        const regExName = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+        const regExName = /^(?:(?:https?:)\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff]\.)+(?:[a-z\u00a1-\uffff]{2,}\.?))(?::\d{2,5})?(?:[/?#]\S*)?$/;
 
         if (!regExName.test(newProduct.imageName)){
-            error = "You need a valid Url:adress to the Image"
+            error = "The Image Url is not valid"
         }
 
         setImageError(error);
@@ -175,7 +175,7 @@ const AddNewProduct:React.FC = () => {
             </div>
 
             <div className='new-product-price'>
-                <input className={`${priceError === "" ? "input-padding" : "input-padding error"}`} value={newProduct.price} id="price" type="number" placeholder='Price' onKeyUp={ValidatePrice} onChange={handleChange}/>
+                <input className={`${priceError === "" ? "input-padding input-image" : "input-padding input-image error"}`} value={newProduct.price} id="price" type="number" placeholder='Price' onKeyUp={ValidatePrice} onChange={handleChange}/>
                 <div className="error-message">{priceError}</div>
             </div>
 
@@ -187,7 +187,7 @@ const AddNewProduct:React.FC = () => {
             <div className='new-product-image'>
                 <input className={`${imageError === "" ? "input-padding" : "input-padding error"}`} value={newProduct.imageName} id="imageName" type="text" placeholder='Image Link' onChange={handleChange}  onKeyUp={ValidateImg}/>
                 <div className="error-message">{imageError}</div>
-                <img className={`${newProduct.imageName==="" ? "" : "image-show" }`} src={newProduct.imageName} alt={newProduct.name}/>
+                <img className="image-show" src={newProduct.imageName} alt={newProduct.name}/>
             </div>
 
             <div className='new-product-description'>
@@ -199,6 +199,7 @@ const AddNewProduct:React.FC = () => {
                 <button type="submit" className="button theme-button">Add New Product</button>
             </div>
         </form>
+        <hr className="my-5"/>
     </div>
     
   )
