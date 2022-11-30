@@ -51,6 +51,7 @@ controller.route("/:articleNumber")
 
     if (httpRequest != undefined){
 
+
         httpResponse.product.name = httpRequest.body.name ? httpRequest.body.name : httpResponse.product.name
         httpResponse.product.description = httpRequest.body.description ? httpRequest.body.description : httpResponse.product.description
         httpResponse.product.category = httpRequest.body.category ? httpRequest.body.category : httpResponse.product.category
@@ -66,6 +67,7 @@ controller.route("/:articleNumber")
         //         product.imageName = httpRequest.body.imageName ? httpRequest.body.imageName : product.imageName
         //     }
         // });
+
         httpResponse.status(200).json(httpResponse.product)
     }
     else{
