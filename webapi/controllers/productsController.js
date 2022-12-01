@@ -9,8 +9,9 @@ controller.param("articleNumber", (req,res,next, articleNumber)=>{
     next()
 })
 
-controller.param("amount", (req, res, next, amount)=>{
-    res.productAmount = products.slice(0, amount);
+controller.param("tag", (req, res, next, tag)=>{
+    res.productTag = products.filter(p => p.tag === tag)
+
     next()
 })
 
@@ -51,22 +52,11 @@ controller.route("/:articleNumber")
 
     if (httpRequest != undefined){
 
-
         httpResponse.product.name = httpRequest.body.name ? httpRequest.body.name : httpResponse.product.name
         httpResponse.product.description = httpRequest.body.description ? httpRequest.body.description : httpResponse.product.description
         httpResponse.product.category = httpRequest.body.category ? httpRequest.body.category : httpResponse.product.category
         httpResponse.product.price = httpRequest.body.price ? httpRequest.body.price : httpResponse.product.price
         httpResponse.product.imageName = httpRequest.body.imageName ? httpRequest.body.imageName : httpResponse.product.imageName
-
-        // products.forEach(product => {
-        //     if(product.articleNumber == httpRequest.body.articleNumber){
-        //         product.name = httpRequest.body.name ? httpRequest.body.name : product.name
-        //         product.description = httpRequest.body.description ? httpRequest.body.description : product.description
-        //         product.category = httpRequest.body.category ? httpRequest.body.category : product.category
-        //         product.price = httpRequest.body.price ? httpRequest.body.price : product.price
-        //         product.imageName = httpRequest.body.imageName ? httpRequest.body.imageName : product.imageName
-        //     }
-        // });
 
         httpResponse.status(200).json(httpResponse.product)
     }
@@ -85,12 +75,21 @@ controller.route("/:articleNumber")
     }
 })
 
-// http://localhost:5000/api/products/take/amount
-controller.route("/take/:amount")
+// http://localhost:5000/api/products/take/:tag/:amount
+controller.route("/take/:tag/:amount")
 // GET - get amount
 .get ((httpRequest, httpResponse) => {
     if (httpRequest != undefined){
-        httpResponse.status(201).json(httpResponse.productAmount)
+
+        let productAmount
+
+        if(httpResponse.productTag > httpRequest.params.amount){
+            productAmount = httpResponse.productTag.slice(0, Number(httpRequest.params.amount));
+        }
+        else{
+            productAmount = httpResponse.productTag
+        }
+        httpResponse.status(201).json(productAmount)
     }
     else {
         httpResponse.status(404).json()
