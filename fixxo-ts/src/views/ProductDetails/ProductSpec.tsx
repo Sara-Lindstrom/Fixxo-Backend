@@ -1,26 +1,62 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../../components/Footer';
 import Navigationbar from '../../components/Navigationbar'; 
 import BreadCrumb from '../../components/BreadCrumb';
 import ProductDetails from './Sections/ProductDetails';
-import UseGetProduct from '../../Hooks/UseGetPrudoctDetails';
 import { useParams } from 'react-router-dom';
 import ProductInformation from './Sections/ProductInformation';
 import RelatedProducts from './Sections/RelatedProducts';
+import UseGetProduct from "../../Hooks/UseGetProduct";
+import IProduct from '../../assets/models/IProduct';
+
 
 const ProductSpec = () => {
-  const {id} = useParams()
-  const Product = UseGetProduct(id===undefined ? "" : id)
+  const id = useParams().id
+  // let articleNumber = parseInt(id)
 
-  if (Product == null){
+  let parseId = 0
+
+  if(id!== undefined){
+  parseId = Number(id)
+  }
+
+  const chosenProduct = UseGetProduct(parseId)
+
+  const defaultUpdateProduct:IProduct = {
+    articleNumber:chosenProduct.articleNumber,
+    name: chosenProduct.name,
+    description: chosenProduct.description,
+    category: chosenProduct.category,
+    price: chosenProduct.price,
+    rating:chosenProduct.rating,
+    imageName: chosenProduct.imageName,
+  }
+
+  const [product, setProduct] = useState(defaultUpdateProduct)
+
+  useEffect(() => {
+    setProduct({
+          articleNumber:chosenProduct.articleNumber,
+          name: chosenProduct.name,
+          description: chosenProduct.description,
+          category: chosenProduct.category,
+          price: chosenProduct.price,
+          rating:chosenProduct.rating,
+          imageName: chosenProduct.imageName,
+      })
+  }, [chosenProduct])
+  
+
+  if (chosenProduct == null){
     return <></>
   }
+
 
   return (
     <>
       <Navigationbar/>
       <BreadCrumb currentPage="Product Details" advertising="Get 25% OFF at the Fixxo Selection - Shop Now!"/>
-      <ProductDetails item={Product}/>
+      <ProductDetails item={product}/>
       <ProductInformation/>
       <RelatedProducts/>
       <Footer/>

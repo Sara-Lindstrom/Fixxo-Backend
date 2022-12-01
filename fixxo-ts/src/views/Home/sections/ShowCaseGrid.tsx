@@ -16,6 +16,7 @@ const ShowCaseGrid:React.FC<{leftImg:string, leftAlt:string, col:number, items:I
       {/* if left image is active */}
       <div className={leftShow ? "group" : "d-none"}>
         <img src={leftImg} alt={leftAlt}/>
+        
 
         <div className="info">
           <h4>2 FOR USD $29</h4>
@@ -29,6 +30,7 @@ const ShowCaseGrid:React.FC<{leftImg:string, leftAlt:string, col:number, items:I
       {/* if right image is active */}
       <div className={rightShow ? "group" : "d-none"}>
         <img src={rightImg} alt={rightAlt}/>
+        
         <div className="info">
           <h4>2 FOR USD $29</h4>
           <button className="button light-button"> FLASH&nbsp;SALE</button>

@@ -2,8 +2,8 @@ import IProduct from "../IProduct"
 import INewProduct from "./INewProduct"
 
 export default interface IProductContext {
-    editProduct: IProduct
-    setEditProduct : React.Dispatch<React.SetStateAction<IProduct>>
+    apiProduct: IProduct
+    setApiProduct : React.Dispatch<React.SetStateAction<IProduct>>
     defaultProduct:IProduct 
     submitted:Boolean|null
     baseUrl:string

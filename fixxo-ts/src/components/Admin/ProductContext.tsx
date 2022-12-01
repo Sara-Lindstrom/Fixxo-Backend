@@ -26,7 +26,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
     } 
 
     // variables and Hooks
-    const [editProduct, setEditProduct] = useState<IProduct>(defaultProduct)
+    const [apiProduct, setApiProduct] = useState<IProduct>(defaultProduct)
     const [submitted, setSubmitted] = useState<Boolean|null>(null)
     const [hasChanged, setHasChanged] = useState(false)
 
@@ -47,7 +47,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
         })
 
         if(result.status === 201){
-            setEditProduct(defaultProduct)
+            setApiProduct(defaultProduct)
             setSubmitted(true)
             setHasChanged(true)
         }
@@ -60,18 +60,18 @@ const ProductContextProvider = ({children}:IProviderProps) => {
     // uppdate
     const update = async (id:number, e:React.FormEvent) => {
         e.preventDefault()
-        console.log(editProduct)
+        console.log(apiProduct)
 
         const result = await fetch (`${baseUrl}/${id}`,{
             method:'put',
             headers: {
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify(editProduct)
+            body:JSON.stringify(apiProduct)
         })
 
         if (result.status === 200){
-            setEditProduct(await result.json())
+            setApiProduct(await result.json())
             setHasChanged(true)
         }
         else{
@@ -87,7 +87,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
         })
 
         if (result.status === 204){
-            setEditProduct(defaultProduct)
+            setApiProduct(defaultProduct)
             setHasChanged(true)
         }
         else{
@@ -97,7 +97,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
 
   // returning values of functions
   return (
-    <ProductContext.Provider value={{editProduct, setEditProduct, defaultProduct, create, update, remove, submitted, baseUrl, hasChanged, setHasChanged}}>
+    <ProductContext.Provider value={{apiProduct, setApiProduct, defaultProduct, create, update, remove, submitted, baseUrl, hasChanged, setHasChanged}}>
         {children}
     </ProductContext.Provider>
   )

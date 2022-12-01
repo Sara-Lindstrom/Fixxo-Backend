@@ -15,25 +15,28 @@ import UseGetFeatured from '../../Hooks/UseGetFeatured';
 
 
 const Home:React.FC = () => {
-  const featuredProducts8 = UseGetFeatured(8)
-  const featuredProducts4 = UseGetFeatured(4)
-  const featuredProducts3 = UseGetFeatured(3)
+  const featuredProducts = UseGetFeatured("featured", 8)
+  const specialProducts = UseGetFeatured("specials", 4)
+  const specialProductsExtended = UseGetFeatured("specialsExtended", 4)
+  const latestProducts = UseGetFeatured("latest", 3)
+  const sellingProducts = UseGetFeatured("selling", 3)
+  const reactedProducts = UseGetFeatured("reacted", 3)
 
 
   return (
     <>
       <Navigationbar />
       <Showcase />
-      <ProductGrid cardIsFlexed={false} title={"Featured Products"} col={4} items={featuredProducts8}/>
+      <ProductGrid cardIsFlexed={false} title={"Featured Products"} col={4} items={featuredProducts}/>
       <FeaturedShowcase/>
       <ShoppingInfo/>
-      <ShowCaseGrid leftImg={ShowCaseGridPlaceholder} leftAlt={"place holder"} col={2} rightImg={""} rightAlt={""} items={featuredProducts4}/>
-      <ShowCaseGrid leftImg={""} leftAlt={""}  col={2} rightImg={ShowCaseGridPlaceholder} rightAlt={"place holder"} items={featuredProducts4}/>
+      <ShowCaseGrid leftImg={ShowCaseGridPlaceholder} leftAlt={"place holder"} col={2} rightImg={""} rightAlt={""} items={specialProducts}/>
+      <ShowCaseGrid leftImg={""} leftAlt={""}  col={2} rightImg={ShowCaseGridPlaceholder} rightAlt={"place holder"} items={specialProductsExtended}/>
       <SaleShowcase/>
       <div className="container flex">
-        <ProductGrid cardIsFlexed={true} title={"Latest Products"} col={1} items={featuredProducts3}/>
-        <ProductGrid cardIsFlexed={true} title={"Best Selling Products"} col={1} items={featuredProducts3}/>
-        <ProductGrid cardIsFlexed={true} title={"Top Reacted Products"} col={1} items={featuredProducts3}/>
+        <ProductGrid cardIsFlexed={true} title={"Latest Products"} col={1} items={latestProducts}/>
+        <ProductGrid cardIsFlexed={true} title={"Best Selling Products"} col={1} items={sellingProducts}/>
+        <ProductGrid cardIsFlexed={true} title={"Top Reacted Products"} col={1} items={reactedProducts}/>
       </div>    
       <hr className="container line-break"/> 
       <div className="container contact-info">
