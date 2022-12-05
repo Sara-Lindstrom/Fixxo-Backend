@@ -1,26 +1,63 @@
 const { json } = require('express')
 const express = require ('express')
 const controller = express.Router()
-let products = require('../data/simulated_database')
+let products = require('../data/simulated-database')
+const productSchema = require('../schemas/productSchemas')
 
-// middleware
+// MIDDLEWARE
 controller.param("articleNumber", (req,res,next, articleNumber)=>{
     res.product = products.find(product => product.articleNumber == articleNumber)
     next()
 })
 
-controller.param("tag", (req, res, next, tag)=>{
-    res.productTag = products.filter(p => p.tag === tag)
 
-    next()
+// UNSECURED ROUTES
+// get all
+// http://localhost:5000/api/products
+controller.route('/').get (async (httpRequest, httpResponse) => {
+    
+    try{
+        httpResponse.status(200).json(await productSchema.find())
+    }
+    catch{
+        httpResponse.status(500).json()
+    }
+
+    
 })
 
+// get tagged and amount
+// http://localhost:5000/api/products/take/:tag/:amount
+controller.route("/take/:tag/:amount").get (async(httpRequest, httpResponse) => {
+
+    const products = await productSchema.find({tag: httpRequest.params.tag}).limit(httpRequest.params.amount)
+
+    if (products){
+        httpResponse.status(200).json(products)
+    }
+    else{
+        httpResponse.status(400).json()
+    }
+
+})
+
+// get from article number
+// http://localhost:5000/api/products/:articleNumber
+controller.route("/:articleNumber").get ((httpRequest, httpResponse) => {
+    if (httpRequest != undefined){
+        httpResponse.status(200).json(httpResponse.product)
+    }
+    else{
+        httpResponse.status(404).json()
+    }
+})
+
+// SECURED ROUTES
+// create new product
 // http://localhost:5000/api/products
-controller.route('/')
-// POST - Create
-.post ((httpRequest, httpResponse) => {
+controller.route('/').post ((httpRequest, httpResponse) => {
     let product = {
-        articleNumber: (products[products.length -1])?.articleNumber > 0 ? (products [products.length -1])?.articleNumber +1 : 1,
+        // articleNumber: (products[products.length -1])?.articleNumber > 0 ? (products [products.length -1])?.articleNumber +1 : 1,
         name: httpRequest.body.name,
         description: httpRequest.body.description,
         category: httpRequest.body.category,
@@ -31,24 +68,10 @@ controller.route('/')
     products.push(product)
     httpResponse.status(201).json(product)
 })
-// GET - getAll
-.get ((httpRequest, httpResponse) => {
-    httpResponse.status(200).json(products)
-})
 
-
+// update product
 // http://localhost:5000/api/products/:articleNumber
-controller.route("/:articleNumber")
-// GET - get
-.get ((httpRequest, httpResponse) => {
-    if (httpRequest != undefined){
-        httpResponse.status(200).json(httpResponse.product)
-    }
-    else{
-        httpResponse.status(404).json()
-    }
-})
-.put ((httpRequest, httpResponse) => {
+controller.route("/:articleNumber").put ((httpRequest, httpResponse) => {
 
     if (httpRequest != undefined){
 
@@ -64,7 +87,10 @@ controller.route("/:articleNumber")
         httpResponse.status(404).json()
     }
 })
-.delete ((httpRequest, httpResponse) => {
+
+// delete product
+// http://localhost:5000/api/products/:articleNumber
+controller.route("/:articleNumber").delete ((httpRequest, httpResponse) => {
     if (httpRequest != undefined){
         products= products.filter(product => product.articleNumber !== httpRequest.product.articleNumber)
 
@@ -73,29 +99,6 @@ controller.route("/:articleNumber")
     else{
         httpResponse.status(404).json()
     }
-})
-
-// http://localhost:5000/api/products/take/:tag/:amount
-controller.route("/take/:tag/:amount")
-// GET - get amount
-.get ((httpRequest, httpResponse) => {
-    if (httpRequest != undefined){
-
-        let productAmount
-
-        if(httpResponse.productTag > httpRequest.params.amount){
-            productAmount = httpResponse.productTag.slice(0, Number(httpRequest.params.amount));
-        }
-        else{
-            productAmount = httpResponse.productTag
-        }
-        httpResponse.status(201).json(productAmount)
-    }
-    else {
-        httpResponse.status(404).json()
-    }
-    
-
 })
 
 module.exports = controller
