@@ -7,7 +7,7 @@ import IProduct from "../models/IProduct"
 describe ("ShowMoreOrLessText", () => {
 
     let item: IProduct = {
-        articleNumber:0,
+        articleNumber:"",
         name: "",
         description: "",
         category: "",

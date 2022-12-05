@@ -3,9 +3,9 @@ import IProductContext from '../assets/models/AdminModels/IProductContext'
 import IProduct from '../assets/models/IProduct'
 import { ProductContext } from '../components/Admin/ProductContext'
 
-const UseGetProduct = (articleNumber:number) => {
+const UseGetProduct = (articleNumber:string) => {
     
-    const {baseUrl, defaultProduct} = useContext(ProductContext) as IProductContext
+    const { defaultProduct} = useContext(ProductContext) as IProductContext
 
     
     const [chosenProduct, setChosenProduct] = useState<IProduct>(defaultProduct)
@@ -13,7 +13,7 @@ const UseGetProduct = (articleNumber:number) => {
     useEffect(() => {
         // get
         const get = async () => {
-            const result = await fetch (`${baseUrl}/${articleNumber}`)
+            const result = await fetch (`http://localhost:5000/api/products/${articleNumber}`)
     
             if (result.status === 200){
                 setChosenProduct(await result.json())

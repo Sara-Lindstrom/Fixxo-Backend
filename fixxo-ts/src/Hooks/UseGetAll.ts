@@ -5,7 +5,7 @@ import ICartItem from '../assets/models/useShoppingContextModels/ICartItem'
 import { ProductContext } from '../components/Admin/ProductContext'
 
 export const UseGetAll = () => {
-    const {baseUrl, hasChanged, setHasChanged} = useContext(ProductContext) as IProductContext
+    const { hasChanged, setHasChanged} = useContext(ProductContext) as IProductContext
     
     const [allEditableItems, setAllEditableItems] = useState<ICartItem[]>([])
     const [editableProducts, setEditableProducts] = useState<IProduct[]>([])
@@ -14,7 +14,7 @@ export const UseGetAll = () => {
         
         // get all
         const getAll = async () => {
-            const result = await fetch (`${baseUrl}`)
+            const result = await fetch (`http://localhost:5000/api/products`)
 
             if (result.status===200){
                 setEditableProducts(await result.json())

@@ -12,6 +12,6 @@ export default interface IProductContext {
 
 
     create: (newProduct:INewProduct, e: React.FormEvent) => void
-    update: (id:number, e: React.FormEvent) => void
-    remove: (id:number) => void
+    update: (id:string, e: React.FormEvent) => void
+    remove: (id:string) => void
 }

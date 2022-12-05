@@ -12,12 +12,11 @@ import IProduct from '../../assets/models/IProduct';
 
 const ProductSpec = () => {
   const id = useParams().id
-  // let articleNumber = parseInt(id)
 
-  let parseId = 0
+  let parseId = ""
 
   if(id!== undefined){
-  parseId = Number(id)
+  parseId = id
   }
 
   const chosenProduct = UseGetProduct(parseId)

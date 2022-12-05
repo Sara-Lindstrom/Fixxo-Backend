@@ -9,7 +9,7 @@ import UseGetProduct from '../../../Hooks/UseGetProduct';
 
 
 
-const PopUpUpdateProduct:React.FC<{articleNumber:number, show:Boolean, setShow:React.Dispatch<React.SetStateAction<Boolean>>}> = ({articleNumber, show, setShow}) => {
+const PopUpUpdateProduct:React.FC<{articleNumber:string, show:Boolean, setShow:React.Dispatch<React.SetStateAction<Boolean>>}> = ({articleNumber, show, setShow}) => {
 
     const chosenproduct = UseGetProduct(articleNumber)
 

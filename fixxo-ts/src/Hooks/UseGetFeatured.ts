@@ -1,11 +1,8 @@
-import { useContext, useEffect, useState } from "react"
-import IProductContext from "../assets/models/AdminModels/IProductContext"
+import { useEffect, useState } from "react"
 import IProduct from "../assets/models/IProduct"
 import ICartItem from "../assets/models/useShoppingContextModels/ICartItem"
-import { ProductContext } from "../components/Admin/ProductContext"
 
 export const UseGetFeatured = (tag:string, amount:number) => {
-    const {baseUrl} = useContext(ProductContext) as IProductContext
 
     const [amountItems, setAmountItems] = useState<IProduct[]>([])
     const [amountProducts, setAmountProducts] = useState<ICartItem[]>([])
@@ -14,9 +11,9 @@ export const UseGetFeatured = (tag:string, amount:number) => {
         // http://localhost:5000/api/products/take/:tag/:amount
         // getAmount
         const getAmount = async () => {
-            const result = await fetch (`${baseUrl}/take/${tag}/${amount}`)
+            const result = await fetch (`http://localhost:5000/api/products/take/${tag}/${amount}`)
     
-            if (result.status===201){
+            if (result.status===200){
                 setAmountItems(await result.json())
             }
             else{

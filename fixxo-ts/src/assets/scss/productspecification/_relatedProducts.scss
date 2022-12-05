@@ -1,10 +1,48 @@
 .carousel-box {
     display: grid;
-}
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: auto;
 
-.carousel-title{
+    .carousel-title{
+    grid-column: 1 / -1;
+    grid-template-rows: 1;
     font-weight: $font-weight-medium;
     padding: 0 2rem;
     position: relative;
     bottom:-2rem;
+    }      
+
+    .carouselbox{
+        grid-column: 1 / -1;
+        grid-template-rows: 2;
+        max-height: 25rem;
+        overflow: hidden;
+
+        .carousel-inner{
+            grid-column: 2 / span 4 !important;
+            grid-template-rows: 2;
+        }
+
+        .prev-design{
+            grid-column: 1 !important;
+            grid-template-rows: 2;
+            width: 5rem;
+
+            .carousel-control-prev-icon{
+                filter: invert(100);
+            }
+        }
+
+        .next-design{
+            grid-column: 6 !important;
+            grid-template-rows: 2;
+            width: 5rem;
+
+            .carousel-control-next-icon{
+                filter: invert(100);
+            }
+        }
+
+    }
 }
+

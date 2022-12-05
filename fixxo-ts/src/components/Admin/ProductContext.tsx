@@ -16,7 +16,7 @@ return useContext (ProductContext)
 const ProductContextProvider = ({children}:IProviderProps) => {
 
     const defaultProduct:IProduct = {
-        articleNumber: 0,
+        articleNumber: "",
         name: "",
         description: "",
         category: "",
@@ -58,7 +58,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
     }
 
     // uppdate
-    const update = async (id:number, e:React.FormEvent) => {
+    const update = async (id:string, e:React.FormEvent) => {
         e.preventDefault()
         console.log(apiProduct)
 
@@ -80,7 +80,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
     }
 
     // remove
-    const remove = async (id:number) => {
+    const remove = async (id:string) => {
         
         const result = await fetch (`${baseUrl}/${id}`, {
             method:'delete'
