@@ -4,13 +4,6 @@ const controller = express.Router()
 let products = require('../data/simulated-database')
 const productSchema = require('../schemas/productSchemas')
 
-// MIDDLEWARE
-controller.param("articleNumber", (req,res,next, articleNumber)=>{
-    res.product = products.find(product => product.articleNumber == articleNumber)
-    next()
-})
-
-
 // UNSECURED ROUTES
 // get all
 // http://localhost:5000/api/products
@@ -43,9 +36,11 @@ controller.route("/take/:tag/:amount").get (async(httpRequest, httpResponse) => 
 
 // get from article number
 // http://localhost:5000/api/products/:articleNumber
-controller.route("/:articleNumber").get ((httpRequest, httpResponse) => {
-    if (httpRequest != undefined){
-        httpResponse.status(200).json(httpResponse.product)
+controller.route("/:id").get (async (httpRequest, httpResponse) => {
+    const product = await productSchema.findById(httpRequest.params.id)
+
+    if (product != undefined){
+        httpResponse.status(200).json(product)
     }
     else{
         httpResponse.status(404).json()
@@ -55,50 +50,77 @@ controller.route("/:articleNumber").get ((httpRequest, httpResponse) => {
 // SECURED ROUTES
 // create new product
 // http://localhost:5000/api/products
-controller.route('/').post ((httpRequest, httpResponse) => {
-    let product = {
-        // articleNumber: (products[products.length -1])?.articleNumber > 0 ? (products [products.length -1])?.articleNumber +1 : 1,
-        name: httpRequest.body.name,
-        description: httpRequest.body.description,
-        category: httpRequest.body.category,
-        price: httpRequest.body.price,
-        imageName: httpRequest.body.imageName
+controller.route('/').post (async (httpRequest, httpResponse) => {
+
+    const { name, description, price, category, tag, imageName } = httpRequest.body
+
+    if(!name || !price){
+        httpResponse.status(400).json({text: 'name and price is recuired.'})
     }
 
-    products.push(product)
-    httpResponse.status(201).json(product)
+    const product_exist = await productSchema.findOne({name})
+
+    if (product_exist){
+        httpResponse.status(409).json({text:"A product with the same name already exists."})
+    }
+
+    else{
+        const product = await productSchema.create({
+            name, 
+            description,
+            price,
+            category,
+            tag,
+            imageName
+        })
+        console.log(product)
+
+        if(product){
+            httpResponse.status(201).json({text:"product created"})
+            
+        }
+        else{
+            httpResponse.status(400).json({text:"Something went wrong! We could not create the product."})
+        }
+    }
 })
 
 // update product
 // http://localhost:5000/api/products/:articleNumber
-controller.route("/:articleNumber").put ((httpRequest, httpResponse) => {
+controller.route("/:id").put (async(httpRequest, httpResponse) => {
 
-    if (httpRequest != undefined){
-
-        httpResponse.product.name = httpRequest.body.name ? httpRequest.body.name : httpResponse.product.name
-        httpResponse.product.description = httpRequest.body.description ? httpRequest.body.description : httpResponse.product.description
-        httpResponse.product.category = httpRequest.body.category ? httpRequest.body.category : httpResponse.product.category
-        httpResponse.product.price = httpRequest.body.price ? httpRequest.body.price : httpResponse.product.price
-        httpResponse.product.imageName = httpRequest.body.imageName ? httpRequest.body.imageName : httpResponse.product.imageName
-
-        httpResponse.status(200).json(httpResponse.product)
+    if(httpRequest.params.id != undefined){
+        const product = await productSchema.updateOne(
+            {_id: httpRequest.params.id},
+            { $set: httpRequest.body}
+        )   
+        
+        httpResponse.status(200).json({text:"Product updated"})
     }
-    else{
+    else {
         httpResponse.status(404).json()
     }
 })
 
 // delete product
 // http://localhost:5000/api/products/:articleNumber
-controller.route("/:articleNumber").delete ((httpRequest, httpResponse) => {
-    if (httpRequest != undefined){
-        products= products.filter(product => product.articleNumber !== httpRequest.product.articleNumber)
+controller.route("/:id").delete (async (httpRequest, httpResponse) => {
 
-        httpResponse.status(204).json()
+    if(!httpRequest.params.id){
+        httpResponse.status(400).json({text:"no article number was specified"})
     }
     else{
-        httpResponse.status(404).json()
+        const product = await productSchema.findById(httpRequest.params.id)
+
+        if (product){
+            await productSchema.deleteOne(product)
+            httpResponse.status(200).json({text:`porduct ${httpRequest.params.id} was removed`})
+        }
+        else{
+            httpResponse.status(404).json({text:`product ${httpRequest.params.id} was not found`})
+        }       
     }
+
 })
 
 module.exports = controller
