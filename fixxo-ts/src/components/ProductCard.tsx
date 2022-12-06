@@ -44,7 +44,7 @@ const ProductCard:React.FC<{product:ICartItem, isFlexed:boolean}> = ({product, i
                 </ul>
 
                 {/* button to relocate to productdetails */}
-                <button className="button theme-button"><NavLink className="theme-button-link" to={`/product/id/${product.product.articleNumber}`}>QUICK&nbsp;VIEW</NavLink></button>
+                <button className="button theme-button"><NavLink className="theme-button-link" to={`/product/id/${product.product._id}`}>QUICK&nbsp;VIEW</NavLink></button>
             </div>
         </div>
 

@@ -20,18 +20,18 @@ export const ShoppingCartProvider = ({children}: IProviderProps) => {
     )
 
     const getItemQuantity = (clickedProduct:IProduct) => {
-        return cartItem.find(item => item.product.articleNumber === clickedProduct.articleNumber)?.quantity || 0 
+        return cartItem.find(item => item.product._id === clickedProduct._id)?.quantity || 0 
     }
 
     const incrementQuantity = (clickedProduct: ICartItem) => {
 
         setCartItem (items => {
-            if (items.find(item => item.product.articleNumber === clickedProduct.product.articleNumber) == null){
+            if (items.find(item => item.product._id === clickedProduct.product._id) == null){
                 return [...items, { product: clickedProduct.product, quantity: 1 }]
             }
             else{
                 return items.map(item => {
-                    if (item.product.articleNumber === clickedProduct.product.articleNumber) {
+                    if (item.product._id === clickedProduct.product._id) {
                        return {...item, quantity: item.quantity +1} 
                     }
                     else {
@@ -46,12 +46,12 @@ export const ShoppingCartProvider = ({children}: IProviderProps) => {
     const decrementQuantity = (clickedProduct: ICartItem) => {
 
         setCartItem ( items => {
-            if (items.find(item => item.product.articleNumber === clickedProduct.product.articleNumber)?.quantity === 1){
-                return items.filter (item => item.product.articleNumber !== clickedProduct.product.articleNumber)
+            if (items.find(item => item.product._id === clickedProduct.product._id)?.quantity === 1){
+                return items.filter (item => item.product._id !== clickedProduct.product._id)
             }
             else {
                 return items.map (item => {
-                    if (item.product.articleNumber === clickedProduct.product.articleNumber) {
+                    if (item.product._id === clickedProduct.product._id) {
                        return {...item, quantity: item.quantity -1} 
                     }
                     else {
@@ -65,7 +65,7 @@ export const ShoppingCartProvider = ({children}: IProviderProps) => {
 
     const removeItem = (clickedProduct:ICartItem) => {
         setCartItem ( items => {
-            return items.filter (item => item.product.articleNumber !== clickedProduct.product.articleNumber)
+            return items.filter (item => item.product._id !== clickedProduct.product._id)
         })
     }
 

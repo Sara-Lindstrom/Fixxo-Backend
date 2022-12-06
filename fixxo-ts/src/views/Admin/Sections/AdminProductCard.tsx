@@ -29,10 +29,10 @@ const AdminProductCard:React.FC<{product:ICartItem}> = ({product}) => {
             <button className='round-button admin-buttons' onClick={() => setShow(!show)}><i className="fa-light fa-pen-to-square"></i></button>
             {
               show &&
-              <PopUpUpdateProduct articleNumber={product.product.articleNumber} show={show} setShow={setShow}/>              
+              <PopUpUpdateProduct _id={product.product._id} show={show} setShow={setShow}/>              
             }
 
-            <button className='round-button admin-buttons' onClick={()=>remove(product.product.articleNumber)}><i className="fa-regular fa-trash"></i></button>
+            <button className='round-button admin-buttons' onClick={()=>remove(product.product._id)}><i className="fa-regular fa-trash"></i></button>
         </div>
     </div>   
   )

@@ -22,7 +22,7 @@ const ProductSpec = () => {
   const chosenProduct = UseGetProduct(parseId)
 
   const defaultUpdateProduct:IProduct = {
-    articleNumber:chosenProduct.articleNumber,
+    _id:chosenProduct._id,
     name: chosenProduct.name,
     description: chosenProduct.description,
     category: chosenProduct.category,
@@ -35,7 +35,7 @@ const ProductSpec = () => {
 
   useEffect(() => {
     setProduct({
-          articleNumber:chosenProduct.articleNumber,
+          _id:chosenProduct._id,
           name: chosenProduct.name,
           description: chosenProduct.description,
           category: chosenProduct.category,

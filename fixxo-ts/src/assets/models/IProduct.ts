@@ -1,5 +1,5 @@
 export default interface IProduct {
-    articleNumber:string
+    _id:string
     name: string
     description: string
     category: string

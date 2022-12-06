@@ -3,7 +3,7 @@ import IProductContext from '../assets/models/AdminModels/IProductContext'
 import IProduct from '../assets/models/IProduct'
 import { ProductContext } from '../components/Admin/ProductContext'
 
-const UseGetProduct = (articleNumber:string) => {
+const UseGetProduct = (_id:string) => {
     
     const { defaultProduct} = useContext(ProductContext) as IProductContext
 
@@ -13,7 +13,7 @@ const UseGetProduct = (articleNumber:string) => {
     useEffect(() => {
         // get
         const get = async () => {
-            const result = await fetch (`http://localhost:5000/api/products/${articleNumber}`)
+            const result = await fetch (`http://localhost:5000/api/products/${_id}`)
     
             if (result.status === 200){
                 setChosenProduct(await result.json())
@@ -24,7 +24,7 @@ const UseGetProduct = (articleNumber:string) => {
         }
         get()
 
-    }, [articleNumber])
+    }, [_id])
 
     return chosenProduct
 }

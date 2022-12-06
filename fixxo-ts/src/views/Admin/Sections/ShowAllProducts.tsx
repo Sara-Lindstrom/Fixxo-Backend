@@ -14,7 +14,7 @@ const ShowAllProducts:React.FC= () => {
         <h4 className="headline">All Products</h4>
         <div>
 
-          {allProducts.map(item => <AdminProductCard product={item} key={item.product.articleNumber}/>)}
+          {allProducts.map(item => <AdminProductCard product={item} key={item.product._id}/>)}
 
         </div>
     </div>

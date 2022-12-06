@@ -15,7 +15,7 @@ const ShoppingCart = () => {
       </div>
       <div className="offcanvas-body">
         {
-        cartItem.map(item => (<ShoppingCartItem key={item.product.articleNumber} item={item}/>)) 
+        cartItem.map(item => (<ShoppingCartItem key={item.product._id} item={item}/>)) 
         }
       </div>
     </div>

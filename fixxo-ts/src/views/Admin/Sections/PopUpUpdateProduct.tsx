@@ -9,13 +9,13 @@ import UseGetProduct from '../../../Hooks/UseGetProduct';
 
 
 
-const PopUpUpdateProduct:React.FC<{articleNumber:string, show:Boolean, setShow:React.Dispatch<React.SetStateAction<Boolean>>}> = ({articleNumber, show, setShow}) => {
+const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispatch<React.SetStateAction<Boolean>>}> = ({_id, show, setShow}) => {
 
-    const chosenproduct = UseGetProduct(articleNumber)
+    const chosenproduct = UseGetProduct(_id)
 
     useEffect(() => {
         setApiProduct({
-            articleNumber:chosenproduct.articleNumber,
+            _id:chosenproduct._id,
             name: chosenproduct.name,
             description: chosenproduct.description,
             category: chosenproduct.category,
@@ -144,7 +144,7 @@ const PopUpUpdateProduct:React.FC<{articleNumber:string, show:Boolean, setShow:R
             setImageError('');
             setDescriptionError('');
 
-            update(articleNumber, e)
+            update(_id, e)
             setShow(false)
 
         }
