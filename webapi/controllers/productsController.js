@@ -1,8 +1,7 @@
-const { json } = require('express')
 const express = require ('express')
+const { authorize } = require('../middleware/authorization')
 const controller = express.Router()
-let products = require('../data/simulated-database')
-const productSchema = require('../schemas/productSchemas')
+const productSchema = require('../schemas/productSchema')
 
 // UNSECURED ROUTES
 // get all
@@ -35,7 +34,7 @@ controller.route("/take/:tag/:amount").get (async(httpRequest, httpResponse) => 
 })
 
 // get from article number
-// http://localhost:5000/api/products/:articleNumber
+// http://localhost:5000/api/products/:id
 controller.route("/:id").get (async (httpRequest, httpResponse) => {
     const product = await productSchema.findById(httpRequest.params.id)
 
@@ -50,7 +49,7 @@ controller.route("/:id").get (async (httpRequest, httpResponse) => {
 // SECURED ROUTES
 // create new product
 // http://localhost:5000/api/products
-controller.route('/').post (async (httpRequest, httpResponse) => {
+controller.route('/').post (authorize, async (httpRequest, httpResponse) => {
 
     const { name, description, price, category, tag, imageName } = httpRequest.body
 
@@ -86,8 +85,8 @@ controller.route('/').post (async (httpRequest, httpResponse) => {
 })
 
 // update product
-// http://localhost:5000/api/products/:articleNumber
-controller.route("/:id").put (async(httpRequest, httpResponse) => {
+// http://localhost:5000/api/products/:id
+controller.route("/:id").put (authorize, async(httpRequest, httpResponse) => {
 
     if(httpRequest.params.id != undefined){
         const product = await productSchema.updateOne(
@@ -103,11 +102,11 @@ controller.route("/:id").put (async(httpRequest, httpResponse) => {
 })
 
 // delete product
-// http://localhost:5000/api/products/:articleNumber
-controller.route("/:id").delete (async (httpRequest, httpResponse) => {
+// http://localhost:5000/api/products/:id
+controller.route("/:id").delete (authorize, async (httpRequest, httpResponse) => {
 
     if(!httpRequest.params.id){
-        httpResponse.status(400).json({text:"no article number was specified"})
+        httpResponse.status(400).json({text:"no id was specified"})
     }
     else{
         const product = await productSchema.findById(httpRequest.params.id)

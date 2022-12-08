@@ -13,8 +13,8 @@ app.use(express.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
 // controller for adress
-const productsController = require('./controllers/productsController')
-app.use('/api/products', productsController) 
+app.use('/api/products', require('./controllers/productsController')) 
+app.use('/api/athentication', require ('./controllers/authenticationController'))
 
 initMongoDB()
 app.listen(port, () => console.log(`webapi is running on http://localhost:${port}`))
