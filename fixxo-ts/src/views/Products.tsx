@@ -4,7 +4,7 @@ import Navigationbar from '../components/Navigationbar';
 import BreadCrumb from '../components/BreadCrumb';
 import ProductGrid from '../components/ProductGrid';
 import { NavLink } from 'react-router-dom';
-import UseGetAll from '../Hooks/UseGetAll';
+import UseGetAll from '../Hooks/productHooks/UseGetAll';
 
 const ProductBrowse = () => {
     

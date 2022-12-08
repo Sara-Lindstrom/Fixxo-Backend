@@ -30,7 +30,8 @@ const Navigationbar = () => {
               <NavLink className="navigation-menu-item" to="/" end>Home</NavLink>
               <NavLink className="navigation-menu-item" to="/categories" end>Categories</NavLink>
               <NavLink className="navigation-menu-item" to="/products">Products</NavLink>
-              <NavLink className="navigation-menu-item" to="/contacts" end>Contacts</NavLink>           
+              <NavLink className="navigation-menu-item" to="/contacts" end>Contacts</NavLink> 
+              <NavLink className="navigation-menu-item" to="/signin" end>Log&nbsp;In</NavLink>          
           </nav>             
         </div>
 

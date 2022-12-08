@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ProductGrid from '../../../components/ProductGrid'
-import UseGetFeatured from '../../../Hooks/UseGetFeatured'
+import UseGetFeatured from '../../../Hooks/productHooks/UseGetFeatured'
 
 
 const RelatedProducts = () => {

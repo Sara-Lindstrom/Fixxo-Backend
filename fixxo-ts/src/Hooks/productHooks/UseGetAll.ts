@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
-import IProductContext from '../assets/models/AdminModels/IProductContext'
-import IProduct from '../assets/models/IProduct'
-import ICartItem from '../assets/models/useShoppingContextModels/ICartItem'
-import { ProductContext } from '../components/Admin/ProductContext'
+import IProductContext from '../../assets/models/AdminModels/IProductContext'
+import IProduct from '../../assets/models/IProduct'
+import ICartItem from '../../assets/models/useShoppingContextModels/ICartItem'
+import { ProductContext } from '../../components/Admin/ProductContext'
 
 export const UseGetAll = () => {
     const { hasChanged, setHasChanged} = useContext(ProductContext) as IProductContext

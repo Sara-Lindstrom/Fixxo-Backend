@@ -1,0 +1,36 @@
+.form-container{
+    margin: 3rem auto;
+}
+
+.form{
+    max-width: 70vw;
+    margin: auto;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-gray-20;
+    border: 1px solid $color-gray-30;
+
+    @include md {
+        max-width: 50vw;
+    }
+
+    .title{
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        font-weight: $font-weight-regular;
+    }
+
+    input {
+        height: 2rem;
+        margin: auto;
+        padding-left: 0.5rem;
+        border: 1px solid $color-gray-40; 
+    }
+}
+
+.centered-error{
+    height: 1.5rem;
+}

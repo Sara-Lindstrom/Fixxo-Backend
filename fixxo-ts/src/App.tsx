@@ -13,6 +13,8 @@ import Whishlist from './views/inaktive/Whishlist';
 import Admin from './views/Admin/Admin';
 import { ShoppingCartProvider } from './components/shoppingcart/ShoppingCartContext';
 import ProductContextProvider from './components/Admin/ProductContext';
+import LogIn from './views/LogIn/LogIn';
+import Register from './views/Register/Register';
 
 function App() {
 
@@ -30,6 +32,9 @@ function App() {
             <Route path="/search" element={<Search/>}/>
             <Route path="/share" element={<Share/>}/>
             <Route path="/whishlist" element={<Whishlist/>}/>
+            <Route path="/signin" element={<LogIn/>}/>
+            <Route path='/signup' element={<Register/>}/>
+
 
             <Route path="*" element={<NotFound/>}/>
             <Route path="/admin" element={<Admin/>}/>

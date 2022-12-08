@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import IProductContext from '../assets/models/AdminModels/IProductContext'
-import IProduct from '../assets/models/IProduct'
-import { ProductContext } from '../components/Admin/ProductContext'
+import IProductContext from '../../assets/models/AdminModels/IProductContext'
+import IProduct from '../../assets/models/IProduct'
+import { ProductContext } from '../../components/Admin/ProductContext'
 
 const UseGetProduct = (_id:string) => {
     

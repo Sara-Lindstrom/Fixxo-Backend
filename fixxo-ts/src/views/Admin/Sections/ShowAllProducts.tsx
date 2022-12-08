@@ -1,6 +1,6 @@
 import React from "react"
 import AdminProductCard from "./AdminProductCard"
-import UseGetAll from "../../../Hooks/UseGetAll"
+import UseGetAll from "../../../Hooks/productHooks/UseGetAll"
 
 const ShowAllProducts:React.FC= () => {
   const allProducts= UseGetAll()

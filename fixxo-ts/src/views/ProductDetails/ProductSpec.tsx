@@ -6,7 +6,7 @@ import ProductDetails from './Sections/ProductDetails';
 import { useParams } from 'react-router-dom';
 import ProductInformation from './Sections/ProductInformation';
 import RelatedProducts from './Sections/RelatedProducts';
-import UseGetProduct from "../../Hooks/UseGetProduct";
+import UseGetProduct from "../../Hooks/productHooks/UseGetProduct";
 import IProduct from '../../assets/models/IProduct';
 
 

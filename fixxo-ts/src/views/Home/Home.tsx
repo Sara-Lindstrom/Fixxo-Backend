@@ -11,7 +11,7 @@ import CompanyInformation from './sections/CompanyInformation';
 import CustomerService from "../../assets/img/customer-service-icon.svg";
 import CustomerSecurePayment from "../../assets/img/secured-payment-icon.svg";
 import CustomerDelivery from "../../assets/img/delivery-truck-icon.svg";
-import UseGetFeatured from '../../Hooks/UseGetFeatured';
+import UseGetFeatured from '../../Hooks/productHooks/UseGetFeatured';
 
 
 const Home:React.FC = () => {

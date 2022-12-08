@@ -41,7 +41,8 @@ const ProductContextProvider = ({children}:IProviderProps) => {
         const result = await fetch(`${baseUrl}` ,{
             method:'post',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
             }, 
             body: JSON.stringify(newProduct)           
         })
@@ -64,7 +65,8 @@ const ProductContextProvider = ({children}:IProviderProps) => {
         const result = await fetch (`${baseUrl}/${id}`,{
             method:'put',
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
             },
             body:JSON.stringify(apiProduct)
         })
@@ -82,7 +84,10 @@ const ProductContextProvider = ({children}:IProviderProps) => {
     const remove = async (id:string) => {
         
         const result = await fetch (`${baseUrl}/${id}`, {
-            method:'delete'
+            method:'delete',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
         })
 
         if (result.status === 200){

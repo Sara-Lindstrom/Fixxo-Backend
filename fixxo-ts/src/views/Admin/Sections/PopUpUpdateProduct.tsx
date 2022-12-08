@@ -5,7 +5,7 @@ import { ProductContext } from '../../../components/Admin/ProductContext';
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css';
 import AddedProductMessage from './AddedProductMessage';
-import UseGetProduct from '../../../Hooks/UseGetProduct';
+import UseGetProduct from '../../../Hooks/productHooks/UseGetProduct';
 
 
 

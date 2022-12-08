@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import IProduct from "../assets/models/IProduct"
-import ICartItem from "../assets/models/useShoppingContextModels/ICartItem"
+import IProduct from "../../assets/models/IProduct"
+import ICartItem from "../../assets/models/useShoppingContextModels/ICartItem"
 
 export const UseGetFeatured = (tag:string, amount:number) => {
 
