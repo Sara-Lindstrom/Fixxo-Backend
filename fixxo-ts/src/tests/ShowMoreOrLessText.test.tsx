@@ -1,7 +1,7 @@
 
 import {render, fireEvent, screen } from "@testing-library/react"
-import ProductDetails from "../../views/ProductDetails/Sections/ProductDetails"
-import IProduct from "../models/IProduct"
+import ProductDetails from "../views/ProductDetails/Sections/ProductDetails"
+import IProduct from "../assets/models/IProduct"
 
 
 describe ("ShowMoreOrLessText", () => {

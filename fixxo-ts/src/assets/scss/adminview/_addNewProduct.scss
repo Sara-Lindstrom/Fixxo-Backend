@@ -19,10 +19,15 @@
         border: 1px $color-gray-40 solid;
     }
 
+    select {  
+        width: 100%;
+        padding: 0.3rem 0.5rem;
+        border: 1px $color-gray-40 solid;
+    }
+
     .input-padding{
         padding: 8px;
     }
-
 
     .new-product-title{
         width: 100%;
@@ -33,6 +38,7 @@
             grid-row: 1;
         }
     }
+
     .new-product-name{
         width: 100%;
         max-height: 3rem;
@@ -42,13 +48,29 @@
             grid-row: 2;
         }
     }
-    .new-product-price{
+
+    .new-product-dropdown{
         width: 100%;
         max-height: 3rem;
         
         @include md {
             grid-column: 2;
             grid-row: 3;
+        }
+
+        .dropdown-options{
+            background-color: white;
+            color: $color-gray-60;
+        }
+    }
+
+    .new-product-price{
+        width: 100%;
+        max-height: 3rem;
+        
+        @include md {
+            grid-column: 2;
+            grid-row: 4;
         }
     }
 
@@ -58,7 +80,7 @@
         
         @include md {
             grid-column: 3;
-            grid-row: 3;
+            grid-row: 4;
         }
 
     }
@@ -105,7 +127,7 @@
     .new-product-description{
         @include md {
             grid-column: 2 / span 2;
-            grid-row: 4 / span 3;
+            grid-row: 5 / span 2;
         }
 
     }

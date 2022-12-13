@@ -4,4 +4,5 @@ export default interface INewProduct {
     category: string
     price: number
     imageName: string
+    vendorId: string
 }
