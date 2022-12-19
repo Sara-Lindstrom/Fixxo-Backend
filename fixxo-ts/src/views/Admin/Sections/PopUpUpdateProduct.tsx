@@ -7,8 +7,6 @@ import 'react-dropdown/style.css';
 import AddedProductMessage from './AddedProductMessage';
 import UseGetProduct from '../../../Hooks/productHooks/UseGetProduct';
 
-
-
 const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispatch<React.SetStateAction<Boolean>>}> = ({_id, show, setShow}) => {
 
     const chosenproduct = UseGetProduct(_id)
@@ -17,6 +15,7 @@ const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispa
         setApiProduct({
             _id:chosenproduct._id,
             name: chosenproduct.name,
+            tag: chosenproduct.tag,
             description: chosenproduct.description,
             category: chosenproduct.category,
             price: chosenproduct.price,
@@ -29,10 +28,15 @@ const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispa
         'Tops','Dresses','Asseccoaries','Jackets','Shirts','Hats','Child'
     ]
 
+    const tagDropdownOptions = [
+        'featured', 'specials', 'specialExtended', 'best', 'latest', 'reacted'
+    ]    
+
     // Hooks
     const {update, setApiProduct, apiProduct} = useContext(ProductContext) as IProductContext
 
     const [nameError, setNameError] = useState('');
+    const [tagError, setTagError] = useState('');
     const [priceError, setPriceError] = useState('');
     const [categoryError, setCategoryError] = useState('');
     const [imageError, setImageError] = useState('');
@@ -117,6 +121,11 @@ const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispa
         // setUpdateProduct ({...updateProduct, category: option.value})
         setApiProduct (state => ({...state,  category: option.value}))
     } 
+    
+    const changeTagOption = (option: any) => {
+        // setNewProduct ({...newProduct, tag: option.value})
+        setApiProduct (state => ({...state,  tag: option.value}))
+    } 
 
     // handle change for writing out textArea
     const handleChangeTextArea = async(e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -132,6 +141,7 @@ const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispa
         // let validCategory =  ValidateCategory();
         let validImg = ValidateImg(); 
         let validDescription =  ValidateDescription();
+        // let validateTag = ValidateTag();
         
         e.preventDefault()
 
@@ -145,21 +155,20 @@ const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispa
             setDescriptionError('');
 
             update(_id, e)
-            setShow(false)
 
+            setShow(false)
         }
     };
 
   return (
     <>
-        {console.log(apiProduct)}{
+        {
             show &&
             <div  className="pop-up-container">
                 <div  className="pop-up-background"></div>
                     <div className='pop-up container'>
                         <div className='pop-up-inner'>
                             <button className='round-button' onClick={()=> setShow(!show)}><i className="fa-regular fa-xmark"></i></button>
-                            <AddedProductMessage/>
                             <form onSubmit={ValidateOnSubmit} noValidate className='new-product-form'>
 
                                 <div className='new-product-title'>
@@ -169,6 +178,11 @@ const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispa
                                 <div className='new-product-name'>
                                     <input className={`${nameError === "" ? "input-padding" : "input-padding error"}`} value={apiProduct.name} id="name" type="text" placeholder='Product Name' onKeyUp={ValidateName} onChange={handleChange}/>
                                     <div className="error-message">{nameError}</div>
+                                </div>
+
+                                <div className='new-product-tag'>
+                                    <Dropdown className={`${tagError === "" ? "" : "error"}`} options={tagDropdownOptions} onChange={(option) => changeTagOption(option) } value={apiProduct.tag} placeholder="Tag"/>
+                                    <div className="error-message">{tagError}</div>
                                 </div>
 
                                 <div className='new-product-price'>

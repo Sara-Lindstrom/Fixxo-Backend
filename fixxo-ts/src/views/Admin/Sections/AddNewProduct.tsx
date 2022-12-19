@@ -5,81 +5,44 @@ import INewProduct from '../../../assets/models/AdminModels/INewProduct'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css';
 import AddedProductMessage from './AddedProductMessage'
-import { useQuery, useMutation, gql } from '@apollo/client'
-import IVendors from '../../../assets/models/AdminModels/IVendor'
+import UseGetAll from "../../../Hooks/productHooks/UseGetAll"
+// import { useQuery, useMutation , gql } from '@apollo/client'
+// import IProduct from '../../../assets/models/IProduct'
 
 
 // variables
 const defaultCategory:string = 'Category'
-
-// const defaultVendor:IVendor = {
-//     _id:"0",
-//     name:""
-// }
+const defaultTag:string = 'Tag'
 
 const defaultAddedProduct:INewProduct = {
     name: "",
     description: "",
     category: defaultCategory,
+    tag: defaultTag,
     price: 0,
     imageName: "",
-    vendorId: "0"
 }
 
 const categoryDropdownOptions = [
     'Tops','Dresses','Asseccoaries','Jackets','Shirts','Hats','Child'
 ]
 
-// Querys
-const GET_VENDORS_QUERY = gql`{vendors {_id, name}}`
-const POST_PRODUCT_QUERY = gql
-`mutation addProduct(
-    $name: String!,
-    $description: String,
-    $category: String,
-    $price: Float!,
-    $imageName: String,
-    $vendorId: ID
-    ){
-        addProduct(        
-            name: $name,
-            description: $description,
-            category: $category,
-            price: $price,
-            imageName: $imageName,
-            vendorID: $vendorId
-        ){ name }
-    }
-`
+const tagDropdownOptions = [
+    'featured', 'specials', 'specialExtended', 'best', 'latest', 'reacted'
+]
 
 const AddNewProduct:React.FC = () => {
     // Hooks
-    // const {create} = useContext(ProductContext) as IProductContext
+    const {create} = useContext(ProductContext) as IProductContext
 
     const [newProduct, setNewProduct] = useState<INewProduct>(defaultAddedProduct)
 
     const [nameError, setNameError] = useState('');
-    const [vendorError, setVendorError] = useState('');
     const [priceError, setPriceError] = useState('');
     const [categoryError, setCategoryError] = useState('');
+    const [tagError, setTagError] = useState('');
     const [imageError, setImageError] = useState('');
     const [descriptionError, setDescriptionError] = useState('');
-
-    const {loading, error, data} = useQuery(GET_VENDORS_QUERY)
-    const [addProduct] = useMutation(POST_PRODUCT_QUERY)
-
-    const populateVendors = () => {
-
-        if (loading){
-            return <option disabled>Loading...</option>
-        }
-        if(error){
-            return <option disabled>Error...</option>
-        }
-
-        return data.vendors.map((vendor: IVendors) => <option className="dropdown-options" value={vendor._id} id={vendor.name} key={vendor._id}>{vendor.name}</option>)
-    }
-
 
     // validate name and set errors
     const ValidateName = () => {
@@ -130,15 +93,15 @@ const AddNewProduct:React.FC = () => {
         return error === '' ? true : false;
     }
 
-    // validate vendot and set errors
-    const ValidateVendor = () => {
+    // validate category and set errors
+    const ValidateTag = () => {
         let error = '';
 
-        if (newProduct.vendorId === defaultCategory){
-            error = "Choose a Category"
+        if (newProduct.category === defaultCategory){
+            error = "Choose a Tag"
         }
 
-        setVendorError(error);
+        setTagError(error);
 
         return error === '' ? true : false;
     }
@@ -184,6 +147,10 @@ const AddNewProduct:React.FC = () => {
         setNewProduct ({...newProduct, category: option.value})
     } 
 
+    const changeTagOption = (option: any) => {
+        setNewProduct ({...newProduct, tag: option.value})
+    } 
+
     // handle change for writing out textArea
     const handleChangeTextArea = async(e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const {id, value} = e.currentTarget
@@ -197,11 +164,11 @@ const AddNewProduct:React.FC = () => {
         let validCategory =  ValidateCategory();
         let validImg = ValidateImg();
         let validDescription =  ValidateDescription();
-        let validateVendor = ValidateVendor();
+        let validateTag = ValidateTag();
         
         e.preventDefault()
 
-        if(validName === true && validPrice === true && validCategory === true && validImg === true && validDescription === true && validateVendor === true){
+        if(validName === true && validPrice === true && validCategory === true && validImg === true && validDescription === true && validateTag == true){
 
             // reset and commit product
 
@@ -211,17 +178,15 @@ const AddNewProduct:React.FC = () => {
             setImageError('');
             setDescriptionError('');
 
-            // create(newProduct, e)
-            addProduct({variables: newProduct})
+            create(newProduct, e)
             setNewProduct (defaultAddedProduct)
-
         }
     };
 
 
   return (
     <div className='container'>
-        <AddedProductMessage/>
+        <AddedProductMessage message="Added"/>
         <form onSubmit={ValidateOnSubmit} noValidate className='new-product-form'>
             <div className='new-product-title'>
                 <h2 className="admin-title">Add New Product</h2>    
@@ -232,12 +197,9 @@ const AddNewProduct:React.FC = () => {
                 <div className="error-message">{nameError}</div>
             </div>
 
-            <div className='new-product-dropdown'>
-                <select className={`${vendorError === "" ? "input-padding" : "input-padding error"}`} value={newProduct.vendorId} onChange={(e) => setNewProduct({...newProduct, vendorId:e.target.value})}>
-                    <option value="0" disabled>Vendor</option>
-                    {populateVendors()}
-                </select>
-                <div className="error-message">{vendorError}</div>
+            <div className='new-product-tag'>
+                <Dropdown className={`${tagError === "" ? "" : "error"}`} options={tagDropdownOptions} onChange={(option) => changeTagOption(option) } value={newProduct.tag} placeholder="Tag"/>
+                <div className="error-message">{tagError}</div>
             </div>
 
             <div className='new-product-price'>

@@ -18,6 +18,7 @@ const ProductContextProvider = ({children}:IProviderProps) => {
     const defaultProduct:IProduct = {
         _id: "",
         name: "",
+        tag:"",
         description: "",
         category: "",
         price: 0,

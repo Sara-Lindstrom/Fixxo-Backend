@@ -15,33 +15,41 @@ import { ShoppingCartProvider } from './components/shoppingcart/ShoppingCartCont
 import ProductContextProvider from './components/Admin/ProductContext';
 import LogIn from './views/LogIn/LogIn';
 import Register from './views/Register/Register';
+import {ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client'
+
+const client = new ApolloClient({
+  uri: 'http://localhost:5000/graphql',
+  cache: new InMemoryCache()
+})
 
 function App() {
 
   return (
-    <BrowserRouter>
-      <ShoppingCartProvider>
-        <ProductContextProvider>
-          <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/contacts" element={<Contacts/>}/>
-            <Route path="/product/id/:id" element={<ProductSpec/>}/>
-            
-            <Route path="/categories" element={<Categories/>}/>
-            <Route path="/products" element={<Products/>}/>
-            <Route path="/search" element={<Search/>}/>
-            <Route path="/share" element={<Share/>}/>
-            <Route path="/whishlist" element={<Whishlist/>}/>
-            <Route path="/signin" element={<LogIn/>}/>
-            <Route path='/signup' element={<Register/>}/>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <ShoppingCartProvider>
+          <ProductContextProvider>
+            <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="/contacts" element={<Contacts/>}/>
+              <Route path="/product/id/:id" element={<ProductSpec/>}/>
+              
+              <Route path="/categories" element={<Categories/>}/>
+              <Route path="/products" element={<Products/>}/>
+              <Route path="/search" element={<Search/>}/>
+              <Route path="/share" element={<Share/>}/>
+              <Route path="/whishlist" element={<Whishlist/>}/>
+              <Route path="/signin" element={<LogIn/>}/>
+              <Route path='/signup' element={<Register/>}/>
 
+              <Route path="*" element={<NotFound/>}/>
+              <Route path="/admin" element={<Admin/>}/>
+            </Routes>          
+          </ProductContextProvider>
+        </ShoppingCartProvider>
+      </BrowserRouter>      
+    </ApolloProvider>
 
-            <Route path="*" element={<NotFound/>}/>
-            <Route path="/admin" element={<Admin/>}/>
-          </Routes>          
-        </ProductContextProvider>
-      </ShoppingCartProvider>
-    </BrowserRouter>
   );
 }
 

@@ -10,6 +10,13 @@ const AdminProductCard:React.FC<{product:ICartItem}> = ({product}) => {
   const {remove} = useContext(ProductContext) as IProductContext
 
   const [show, setShow] = useState<Boolean>(false)
+
+  const onClickEvent = (e:React.MouseEvent) => {
+    e.preventDefault()
+    setShow(!show)
+    // () => setShow(!show)
+  }
+
   return (
     // card core
     
@@ -26,7 +33,7 @@ const AdminProductCard:React.FC<{product:ICartItem}> = ({product}) => {
         </div> 
 
         <div className='delete-or-edit-buttons'>
-            <button className='round-button admin-buttons' onClick={() => setShow(!show)}><i className="fa-light fa-pen-to-square"></i></button>
+            <button className='round-button admin-buttons' onClick={onClickEvent}><i className="fa-light fa-pen-to-square"></i></button>
             {
               show &&
               <PopUpUpdateProduct _id={product.product._id} show={show} setShow={setShow}/>              

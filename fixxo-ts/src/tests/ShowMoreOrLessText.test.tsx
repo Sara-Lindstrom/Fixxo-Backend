@@ -9,6 +9,7 @@ describe ("ShowMoreOrLessText", () => {
     let item: IProduct = {
         _id:"",
         name: "",
+        tag:"",
         description: "",
         category: "",
         price: 0,

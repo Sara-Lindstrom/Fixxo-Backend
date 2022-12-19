@@ -8,10 +8,10 @@ const Register = () => {
   return (
     <>
         <div className='footer-wrapper'>
-            <div className='wrapper'>
-                <Navigationbar/>
-                <BreadCrumb currentPage="Sign Up" advertising={""}/>
-                <SignUp/> 
+            <div className='wrapper'>            
+              <Navigationbar/>
+              <BreadCrumb currentPage="Sign Up" advertising={""}/>
+              <SignUp/> 
             </div>
             <Footer/>
         </div>

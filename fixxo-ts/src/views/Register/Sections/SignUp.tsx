@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom';
 
 const Register = () => {
     // useStates for validation
@@ -117,6 +118,7 @@ const Register = () => {
             if (await result.status === 201) {
                 setCanSubmit (true)
                 setFailedSubmit (false)
+
             }
             else {
                 setCanSubmit (false)
@@ -131,22 +133,23 @@ const Register = () => {
 
   return (
     <div className='form-container'>
-            {
-            // message when submittion success
-            canSubmit &&
-                <div className="alert alert-success text-center submitted-comment" role="alert">
-                    <h2>Welcome!</h2>
-                    <p>You are now registered.<br/> Log in to se your orders.</p>
-                </div>
+        {
+        // message when submittion success
+        canSubmit &&
+            <div className="alert alert-success text-center submitted-comment" role="alert">
+                <h2>Welcome!</h2>
+                <p>You are now registered.<br/>
+                <NavLink to='/signin'>Log In</NavLink> to se your orders.</p>      
+            </div>    
         }
 
         {
-            // message when submittion failed
-            failedSubmit &&
-                <div className="alert alert-danger text-center submitted-comment-fail" role="alert">
-                    <h2>Oops!</h2>
-                    <p>Something went Wrong. We couldn't register you right now.</p>
-                </div>
+        // message when submittion failed
+        failedSubmit &&
+            <div className="alert alert-danger text-center submitted-comment-fail" role="alert">
+                <h2>Oops!</h2>
+                <p>Something went Wrong. We couldn't register you right now.</p>
+            </div>
         }
 
         <form onSubmit={ValidateOnSubmit} noValidate className="form">

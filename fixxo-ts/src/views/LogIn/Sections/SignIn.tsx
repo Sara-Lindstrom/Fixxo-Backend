@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -113,12 +113,9 @@ const Login = () => {
   return (
     <div className='form-container'>
       {
-        // message when submittion success
+        // redirect if logged in successfully
         canSubmit &&
-            <div className="alert alert-success text-center submitted-comment" role="alert">
-                <h2>Welcome!</h2>
-                <p>You are now logged in.</p>
-            </div>
+        <Navigate to="/admin"/>
       }
 
       {
