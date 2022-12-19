@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
 // controller for adress
-// app.use('/api/products', require('./controllers/productsController')) 
+app.use('/api/products', require('./controllers/productsController')) 
 app.use('/api/athentication', require ('./controllers/authenticationController'))
 
 // Controller GraphQL

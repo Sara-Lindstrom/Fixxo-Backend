@@ -4,19 +4,19 @@ const controller = express.Router()
 const productSchema = require('../schemas/productSchema')
 
 // UNSECURED ROUTES
-// get all
+// get all - Using GraphQL, just wanted to show that i understand both ways to get all
 // http://localhost:5000/api/products
-controller.route('/').get (async (httpRequest, httpResponse) => {
+// controller.route('/').get (async (httpRequest, httpResponse) => {
     
-    try{
-        httpResponse.status(200).json(await productSchema.find())
-    }
-    catch{
-        httpResponse.status(500).json()
-    }
+//     try{
+//         httpResponse.status(200).json(await productSchema.find())
+//     }
+//     catch{
+//         httpResponse.status(500).json()
+//     }
 
     
-})
+// })
 
 // get tagged and amount
 // http://localhost:5000/api/products/take/:tag/:amount
@@ -64,11 +64,20 @@ controller.route('/').post (authorize, async (httpRequest, httpResponse) => {
     }
 
     else{
+
+        function getRandomRating(min, max) {
+            min= 0
+            max= 6
+            const rating = Math.random() * (max - min) + min;
+            return Math.round(rating)
+        }
+
         const product = await productSchema.create({
             name, 
             description,
             price,
             category,
+            rating:getRandomRating(),
             tag,
             imageName
         })
