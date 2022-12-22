@@ -81,7 +81,6 @@ controller.route('/').post (authorize, async (httpRequest, httpResponse) => {
             tag,
             imageName
         })
-        console.log(product)
 
         if(product){
             httpResponse.status(201).json({text:"product created"})
