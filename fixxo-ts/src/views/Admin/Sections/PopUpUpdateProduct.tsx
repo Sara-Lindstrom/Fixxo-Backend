@@ -4,7 +4,6 @@ import IProductContext from '../../../assets/models/AdminModels/IProductContext'
 import { ProductContext } from '../../../components/Admin/ProductContext';
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css';
-import AddedProductMessage from './AddedProductMessage';
 import UseGetProduct from '../../../Hooks/productHooks/UseGetProduct';
 
 const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispatch<React.SetStateAction<Boolean>>}> = ({_id, show, setShow}) => {
@@ -25,7 +24,7 @@ const PopUpUpdateProduct:React.FC<{_id:string, show:Boolean, setShow:React.Dispa
     }, [chosenproduct])
 
     const categoryDropdownOptions = [
-        'Tops','Dresses','Asseccoaries','Jackets','Shirts','Hats','Child'
+        'Tops','Dresses','Accessories','Jackets','Shirts','Hats','Child'
     ]
 
     const tagDropdownOptions = [

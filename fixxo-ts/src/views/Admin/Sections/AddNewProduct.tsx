@@ -5,9 +5,6 @@ import INewProduct from '../../../assets/models/AdminModels/INewProduct'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css';
 import AddedProductMessage from './AddedProductMessage'
-import UseGetAll from "../../../Hooks/productHooks/UseGetAll"
-// import { useQuery, useMutation , gql } from '@apollo/client'
-// import IProduct from '../../../assets/models/IProduct'
 
 
 // variables
@@ -24,7 +21,7 @@ const defaultAddedProduct:INewProduct = {
 }
 
 const categoryDropdownOptions = [
-    'Tops','Dresses','Asseccoaries','Jackets','Shirts','Hats','Child'
+    'Tops','Dresses','Accessories','Jackets','Shirts','Hats','Child'
 ]
 
 const tagDropdownOptions = [

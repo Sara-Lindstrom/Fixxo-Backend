@@ -3,12 +3,11 @@
     padding: 0.3rem 2rem;
     border:none;    
     font-family: $font-poppins; 
-    font-size: $font-size-13;  
+    font-size: $font-size-13 !important;  
     font-weight: $font-weight-semibold;     
 
     @include lg {
         padding:0.8rem 3rem;
-        font-size: $font-size-16; 
     }
 
 }
